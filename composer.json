@@ -1,0 +1,10 @@
+{
+    "name": "jmadsm/gateway-client",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "JmaDsm\\GatewayClient\\": "src/"
+        }
+    },
+    "require": {}
+}
