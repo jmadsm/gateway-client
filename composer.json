@@ -1,6 +1,13 @@
 {
     "name": "jmadsm/gateway-client",
+    "version": "0.1.0",
     "type": "library",
+    "authors": [
+        {
+            "name": "JMA",
+            "email": "web@jma.dk"
+        }
+    ],
     "autoload": {
         "psr-4": {
             "JmaDsm\\GatewayClient\\": "src/"
