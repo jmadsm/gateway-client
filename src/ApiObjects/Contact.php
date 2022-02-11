@@ -11,9 +11,21 @@ class Contact
      *
      * @return void
      */
-    public static function all()
+    public static function all($page = 1)
     {
-        return Client::getInstance()->service('contacts')->get();
+        // todo add support for pagination
+        return Client::getInstance()->service('contacts')->get('?page=' . $page);
+    }
+
+    /**
+     * Returns specific contact
+     *
+     * @param $id
+     * @return string
+     */
+    public static function get($id)
+    {
+        return Client::getInstance()->service('contacts')->get($id);
     }
 
     /**
@@ -21,8 +33,33 @@ class Contact
      *
      * @return void
      */
-    public static function web()
+    public static function web($page = 1)
     {
-        return Client::getInstance()->service('contacts')->get('web');
+        return Client::getInstance()->service('webshopcontacts')->get('?page=' . $page);
+    }
+
+    /**
+     * Returns live information about the Contact service.
+     * $exportToWebshop sets whether you want all contacts
+     *
+     * @param false $exportToWebshop
+     * @return string
+     */
+    public static function getInfo($exportToWebshop = false)
+    {
+        $exportToWebshop = boolval($exportToWebshop) ? 'true' : 'false';
+        return Client::getInstance()->service('contacts')->get('/info', ["exportToWebshop" => $exportToWebshop]);
+    }
+
+    /**
+     * Returns contacts changed since $from date. Defaults to page 1
+     *
+     * @param $from
+     * @param int $page
+     * @return string
+     */
+    public static function getDeltaUpdates($from, $page = 1)
+    {
+        return Client::getInstance()->service('contacts')->get('delta/' . $from . '?page=' . $page);
     }
 }
