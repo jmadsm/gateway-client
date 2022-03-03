@@ -2,6 +2,7 @@
 
 namespace JmaDsm\GatewayClient\ApiObjects;
 
+use JmaDsm\GatewayClient\ApiObjectResult;
 use JmaDsm\GatewayClient\Client;
 
 class Category
@@ -9,11 +10,21 @@ class Category
     /**
      * Returns all categories
      *
-     * @return string
+     * @return JmaDsm\GatewayClient\ApiObjectResult;
      */
-    public static function all($page = 1)
+    public static function all(int $page = 1)
     {
-        return Client::getInstance()->service('categories')->get('?page=' . $page);
+        // Get first category page
+        $result = json_decode(Client::getInstance()->service('categories')->get("?page=1"));
+        $categories = $result->data;
+
+        // Iterate through remaining category pages
+        while ($result->current_page <= $result->last_page) {
+            $result = json_decode(Client::getInstance()->service('categories')->get("?page=" . $result->current_page + 1));
+            $categories = array_merge($categories, $result->data);
+        }
+
+        return new ApiObjectResult($categories);
     }
 
     /**

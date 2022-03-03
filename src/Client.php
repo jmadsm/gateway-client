@@ -38,11 +38,11 @@ class Client
      * @param string $accessToken
      * @param string $tenantToken
      */
-    private function __construct ($baseUrl = null, $accessToken = null, $tenantToken = null)
+    private function __construct($baseUrl = null, $accessToken = null, $tenantToken = null)
     {
-        if($baseUrl) $this->setBaseUrl($baseUrl);
-        if($accessToken) $this->setAccessToken($accessToken);
-        if($tenantToken) $this->setTenantToken($tenantToken);
+        if ($baseUrl) $this->setBaseUrl($baseUrl);
+        if ($accessToken) $this->setAccessToken($accessToken);
+        if ($tenantToken) $this->setTenantToken($tenantToken);
 
         $this->curl = curl_init();
 
@@ -140,7 +140,8 @@ class Client
      *
      * @return void
      */
-    private function setApiClientHeaders() {
+    private function setApiClientHeaders()
+    {
         curl_setopt($this->curl, CURLOPT_HTTPHEADER, array(
             'Authorization: Bearer ' . $this->accessToken,
             'x-tenant-token: ' . $this->tenantToken,
@@ -173,7 +174,7 @@ class Client
                 curl_setopt($this->curl, CURLOPT_POSTFIELDS, $payload);
                 break;
             default:
-                throw \Exception('Undefined HTTP method', 1);
+                throw new \Exception('Undefined HTTP method', 1);
         }
 
         curl_setopt($this->curl, CURLOPT_URL, $url);
