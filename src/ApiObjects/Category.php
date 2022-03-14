@@ -12,15 +12,19 @@ class Category
      *
      * @return JmaDsm\GatewayClient\ApiObjectResult;
      */
-    public static function all(int $page = 1)
+    public static function all(int $page = 1, $since = null)
     {
         // Get first category page
-        $result = json_decode(Client::getInstance()->service('categories')->get("?page=1"));
+        $url = $since
+            ? '?since=' . $since . '&page='
+            : '?page=';
+
+        $result = json_decode(Client::getInstance()->service('categories')->get($url . $page));
         $categories = $result->data;
 
         // Iterate through remaining category pages
         while ($result->current_page <= $result->last_page) {
-            $result = json_decode(Client::getInstance()->service('categories')->get("?page=" . $result->current_page + 1));
+            $result = json_decode(Client::getInstance()->service('categories')->get( $url . $result->current_page + 1));
             $categories = array_merge($categories, $result->data);
         }
 
@@ -41,12 +45,12 @@ class Category
     /**
      * Returns categories changed since $from date. Defaults to page 1
      *
-     * @param $from
+     * @param $since
      * @param int $page
      * @return string
      */
-    public static function getDeltaUpdates($from, $page = 1)
+    public static function since($since, $page = 1)
     {
-        return Client::getInstance()->service('categories')->get('delta/' . $from . '?page=' . $page);
+        return Category::all($page, $since);
     }
 }
