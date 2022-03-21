@@ -152,17 +152,17 @@ class Client
      * Sends and formates http request to api
      *
      * @param string       $method    "GET"|"DELETE"|"POST"
-     * @param string       $url       Url to append the baseUrl and serviceName ("$baseUrl/$serviceName/$url")
+     * @param string       $endpoint       Url to append the baseUrl and serviceName ("$baseUrl/$serviceName/$url")
      * @param string|array $payload   Array: payload is used as query params. String: Array is used as body
      * @return void
      */
-    public function request($method, $url = '/', $payload = null)
+    public function request($method, string $endpoint = '/', $payload = null)
     {
         $this->setApiClientHeaders();
 
         // Formats url for the request. It ensures that you can use
         // beginning and trailing slashes without running into issues
-        $url = rtrim($this->baseUrl, '/') . '/' . $this->serviceName . rtrim('/' . ltrim(strval($url), '/'), '/');
+        $url = rtrim($this->baseUrl, '/') . '/' . $this->serviceName . rtrim('/' . ltrim($endpoint, '/'), '/');
 
         switch (strtoupper($method)) {
             case 'GET':
@@ -193,24 +193,24 @@ class Client
     /**
      * Make a GET http request
      *
-     * @param string       $url     Url to append the baseUrl and serviceName ("$baseUrl/$serviceName/$url")
+     * @param string       $endpoint     Url to append the baseUrl and serviceName ("$baseUrl/$serviceName/$url")
      * @param string|array $payload
      * @return string
      */
-    public function get($url = '', $payload = null)
+    public function get($endpoint = '', $payload = null)
     {
-        return $this->request('GET', $url, $payload);
+        return $this->request('GET', $endpoint, $payload);
     }
 
     /**
      * Make a POST http reqquest
      *
-     * @param string       $url     Url to append the baseUrl and serviceName ("$baseUrl/$serviceName/$url")
+     * @param string       $endpoint     Url to append the baseUrl and serviceName ("$baseUrl/$serviceName/$url")
      * @param string|array $payload
      * @return string
      */
-    public function post($url, $payload = null)
+    public function post($endpoint, $payload = null)
     {
-        return $this->request('POST', $url, $payload);
+        return $this->request('POST', $endpoint, $payload);
     }
 }

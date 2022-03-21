@@ -14,17 +14,12 @@ class Category
      */
     public static function all(int $page = 1, $since = null)
     {
-        // Get first category page
-        $url = $since
-            ? '?since=' . $since . '&page='
-            : '?page=';
-
-        $result = json_decode(Client::getInstance()->service('categories')->get($url . $page));
+        $result = json_decode(Client::getInstance()->service('categories')->get('', ['page' => $page, 'since' => $since]));
         $categories = $result->data;
 
         // Iterate through remaining category pages
         while ($result->current_page <= $result->last_page) {
-            $result = json_decode(Client::getInstance()->service('categories')->get( $url . $result->current_page + 1));
+            $result = json_decode(Client::getInstance()->service('categories')->get('', ['page' => ($result->current_page + 1), 'since' => $since]));
             $categories = array_merge($categories, $result->data);
         }
 
