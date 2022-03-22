@@ -2,6 +2,7 @@
 
 namespace JmaDsm\GatewayClient\ApiObjects;
 
+use JmaDsm\GatewayClient\ApiObjectResult;
 use JmaDsm\GatewayClient\Client;
 
 class Contact
@@ -9,12 +10,20 @@ class Contact
     /**
      * Returns all contacts
      *
-     * @return void
+     * @return JmaDsm\GatewayClient\ApiObjectResult;
      */
-    public static function all($page = 1)
+    public static function all(int $page = 1, $since = null)
     {
-        // todo add support for pagination
-        return Client::getInstance()->service('contacts')->get('?page=' . $page);
+        $result = json_decode(Client::getInstance()->service('contacts')->get('', ['page' => $page, 'since' => $since]));
+        $contacts = $result->data;
+
+        // Iterate through remaining contacts pages
+        while ($result->current_page <= $result->last_page) {
+            $result = json_decode(Client::getInstance()->service('contacts')->get('', ['page' => ($result->current_page + 1), 'since' => $since]));
+            $contacts = array_merge($contacts, $result->data);
+        }
+
+        return new ApiObjectResult($contacts);
     }
 
     /**
@@ -25,7 +34,8 @@ class Contact
      */
     public static function get($id)
     {
-        return Client::getInstance()->service('contacts')->get($id);
+        $result = json_decode(Client::getInstance()->service('contacts')->get($id));
+        return new ApiObjectResult($result->data);
     }
 
     /**
@@ -35,31 +45,19 @@ class Contact
      */
     public static function web($page = 1)
     {
-        return Client::getInstance()->service('webshopcontacts')->get('?page=' . $page);
-    }
-
-    /**
-     * Returns live information about the Contact service.
-     * $exportToWebshop sets whether you want all contacts
-     *
-     * @param false $exportToWebshop
-     * @return string
-     */
-    public static function getInfo($exportToWebshop = false)
-    {
-        $exportToWebshop = boolval($exportToWebshop) ? 'true' : 'false';
-        return Client::getInstance()->service('contacts')->get('/info', ["exportToWebshop" => $exportToWebshop]);
+        $result = json_decode(Client::getInstance()->service('webshopcontacts')->get('', ['page' => $page]));
+        return new ApiObjectResult($result->data);
     }
 
     /**
      * Returns contacts changed since $from date. Defaults to page 1
      *
-     * @param $from
+     * @param $since
      * @param int $page
-     * @return string
+     * @return ApiObjectResult
      */
-    public static function getDeltaUpdates($from, $page = 1)
+    public static function since($since, int $page = 1)
     {
-        return Client::getInstance()->service('contacts')->get('delta/' . $from . '?page=' . $page);
+        return Contact::all($page, $since);
     }
 }

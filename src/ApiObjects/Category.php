@@ -10,6 +10,8 @@ class Category
     /**
      * Returns all categories
      *
+     * @param int $page
+     * @param $since
      * @return JmaDsm\GatewayClient\ApiObjectResult;
      */
     public static function all(int $page = 1, $since = null)
@@ -30,11 +32,13 @@ class Category
      * Returns specific category
      *
      * @param $id
-     * @return string
+     * @return ApiObjectResult
      */
     public static function get($id)
     {
-        return Client::getInstance()->service('categories')->get($id);
+        $result = json_decode(Client::getInstance()->service('categories')->get($id));
+
+        return new ApiObjectResult($result->data);
     }
 
     /**
@@ -42,7 +46,7 @@ class Category
      *
      * @param $since
      * @param int $page
-     * @return string
+     * @return ApiObjectResult
      */
     public static function since($since, $page = 1)
     {
