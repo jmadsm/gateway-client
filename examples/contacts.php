@@ -1,32 +1,26 @@
 <?php
 
 // Require the composer autoloader
-require_once ('../vendor/autoload.php');
+require_once (__DIR__ . '/../vendor/autoload.php');
+require_once (__DIR__ . '/config.php');
 
 use JmaDsm\GatewayClient\Client;
 use JmaDsm\GatewayClient\ApiObjects\Contact;
 
-// Configure the client singleton, this allow
+// Configure the client singleton, this allows
 // all the ApiObjects to perform requests using
 // this configuration
-Client::getInstance('http://localhost/api', 'HzWAFCtkv2VDu1CSaQYfk7dOTVzoOwbYXdRRy2Zu', 'jaDQguLa6yhKmMms2h4T6Tzk6K54JLgB');
+$config = getConfig('contacts');
 
-// Get all Contacts
-var_dump(json_decode(
-    Contact::all(2)
-));
+Client::getInstance(
+    $config['endpoint'],
+    $config['access_token'],
+    $config['tenant_token']
+);
 
-
-/*
-
-// get changed contacts since $from dateTime
-var_dump(json_decode(
-    Contact::getDeltaUpdates('2022-01-10T13:46:37.307Z', 2)
-));
-
-// get info about the contacts service
-var_dump(json_decode(
-    Contact::getInfo(true)
-));
-
-*/
+var_dump(
+    Contact::all()->next(),
+//    Contact::since("2023-10-05")->next(),
+//    Contact::web()->next(),
+//    Contact::get("E000001")->next()
+);
