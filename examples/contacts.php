@@ -19,8 +19,7 @@ Client::getInstance(
 );
 
 var_dump(
-    Contact::all()->next(),
-//    Contact::since("2023-10-05")->next(),
-//    Contact::web()->next(),
-//    Contact::get("E000001")->next()
+   // Contact::all()->next(),
+    Contact::since("2022-10-05")->next(),
+    //Contact::get("E005375")->next()
 );

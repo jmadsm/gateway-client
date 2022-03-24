@@ -39,17 +39,6 @@ class Contact
     }
 
     /**
-     * Returns all web contacts
-     *
-     * @return void
-     */
-    public static function web($page = 1)
-    {
-        $result = json_decode(Client::getInstance()->service('webshopcontacts')->get('', ['page' => $page]));
-        return new ApiObjectResult($result->data);
-    }
-
-    /**
      * Returns contacts changed since $from date. Defaults to page 1
      *
      * @param $since
