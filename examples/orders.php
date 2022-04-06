@@ -10,10 +10,8 @@ use JmaDsm\GatewayClient\ApiObjects\Order;
 // Configure the client singleton, this allows
 // all the ApiObjects to perform requests using
 // this configuration
-$config = getConfig('orders');
-
 Client::getInstance(
-    $config['endpoint'],
+    $config['base_url'],
     $config['access_token'],
     $config['tenant_token']
 );
