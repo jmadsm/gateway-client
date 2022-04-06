@@ -122,19 +122,6 @@ class Client
     }
 
     /**
-     * Sets the current service to use
-     *
-     * @param string $serviceName
-     * @return Client
-     */
-    public function service($serviceName = null)
-    {
-        if ($serviceName) $this->serviceName = $serviceName;
-
-        return $this;
-    }
-
-    /**
      * Updates the curl headers to include Authorization and
      * x-tenant-token headers
      *
@@ -152,7 +139,7 @@ class Client
      * Sends and formates http request to api
      *
      * @param string       $method    "GET"|"DELETE"|"POST"
-     * @param string       $endpoint       Url to append the baseUrl and serviceName ("$baseUrl/$serviceName/$url")
+     * @param string       $endpoint  Url to append the baseUrl ("$baseUrl/$url")
      * @param string|array $payload   Array: payload is used as query params. String: Array is used as body
      * @return void
      */
@@ -160,7 +147,7 @@ class Client
     {
         // Formats url for the request. It ensures that you can use
         // beginning and trailing slashes without running into issues
-        $url = rtrim($this->baseUrl, '/') . '/' . $this->serviceName . rtrim('/' . ltrim($endpoint, '/'), '/');
+        $url = rtrim($this->baseUrl, '/') . rtrim('/' . ltrim($endpoint, '/'), '/');
 
         switch (strtoupper($method)) {
             case 'GET':
@@ -193,7 +180,7 @@ class Client
     /**
      * Make a GET http request
      *
-     * @param string       $endpoint     Url to append the baseUrl and serviceName ("$baseUrl/$serviceName/$url")
+     * @param string       $endpoint     Url to append the baseUrl ("$baseUrl/$url")
      * @param string|array $payload
      * @return string
      */
@@ -205,7 +192,7 @@ class Client
     /**
      * Make a POST http reqquest
      *
-     * @param string       $endpoint     Url to append the baseUrl and serviceName ("$baseUrl/$serviceName/$url")
+     * @param string       $endpoint     Url to append the baseUrl ("$baseUrl/$url")
      * @param string|array $payload
      * @return string
      */

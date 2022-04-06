@@ -7,6 +7,8 @@ use JmaDsm\GatewayClient\Client;
 
 class Contact
 {
+    private static string $apiPath = '/contact/api/v1';
+
     /**
      * Returns all contacts
      *
@@ -14,12 +16,12 @@ class Contact
      */
     public static function all(int $page = 1, $since = null)
     {
-        $result = json_decode(Client::getInstance()->service('contacts')->get('', ['page' => $page, 'since' => $since]));
+        $result = json_decode(Client::getInstance()->get(self::$apiPath . '/contacts', ['page' => $page, 'since' => $since]));
         $contacts = $result->data;
 
         // Iterate through remaining contacts pages
         while ($result->current_page <= $result->last_page) {
-            $result = json_decode(Client::getInstance()->service('contacts')->get('', ['page' => ($result->current_page + 1), 'since' => $since]));
+            $result = json_decode(Client::getInstance()->get(self::$apiPath . '/contacts', ['page' => ($result->current_page + 1), 'since' => $since]));
             $contacts = array_merge($contacts, $result->data);
         }
 
@@ -34,7 +36,7 @@ class Contact
      */
     public static function get($id)
     {
-        $result = json_decode(Client::getInstance()->service('contacts')->get($id));
+        $result = json_decode(Client::getInstance()->get(self::$apiPath . '/contacts/' . $id));
         return new ApiObjectResult($result->data);
     }
 

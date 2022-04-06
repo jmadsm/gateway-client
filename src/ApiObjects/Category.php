@@ -7,6 +7,8 @@ use JmaDsm\GatewayClient\Client;
 
 class Category
 {
+    private static string $apiPath = '/product/api/v1';
+
     /**
      * Returns all categories
      *
@@ -16,12 +18,12 @@ class Category
      */
     public static function all(int $page = 1, $since = null)
     {
-        $result = json_decode(Client::getInstance()->service('categories')->get('', ['page' => $page, 'since' => $since]));
+        $result = json_decode(Client::getInstance()->get(self::$apiPath . '/categories', ['page' => $page, 'since' => $since]));
         $categories = $result->data;
 
         // Iterate through remaining category pages
         while ($result->current_page <= $result->last_page) {
-            $result = json_decode(Client::getInstance()->service('categories')->get('', ['page' => ($result->current_page + 1), 'since' => $since]));
+            $result = json_decode(Client::getInstance()->get(self::$apiPath . '/categories', ['page' => ($result->current_page + 1), 'since' => $since]));
             $categories = array_merge($categories, $result->data);
         }
 
@@ -36,7 +38,7 @@ class Category
      */
     public static function get($id)
     {
-        $result = json_decode(Client::getInstance()->service('categories')->get($id));
+        $result = json_decode(Client::getInstance()->get(self::$apiPath . '/categories/' . $id));
 
         return new ApiObjectResult($result->data);
     }

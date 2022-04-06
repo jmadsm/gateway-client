@@ -7,6 +7,8 @@ use JmaDsm\GatewayClient\Client;
 
 class Order
 {
+    private static string $apiPath = '/order/api/v1';
+
     /**
      * Returns all categories
      *
@@ -16,7 +18,7 @@ class Order
      */
     public static function create(array $orderData)
     {
-        $result = json_decode(Client::getInstance()->service('order')->post('', $orderData));
+        $result = json_decode(Client::getInstance()->post(self::$apiPath . '/order', $orderData));
 
         return new ApiObjectResult($result);
     }
