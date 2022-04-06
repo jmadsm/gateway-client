@@ -140,12 +140,12 @@ class Client
      *
      * @return void
      */
-    private function setApiClientHeaders()
+    private function setApiClientHeaders(array $additionalHeaders = array())
     {
-        curl_setopt($this->curl, CURLOPT_HTTPHEADER, array(
+        curl_setopt($this->curl, CURLOPT_HTTPHEADER, array_merge(array(
             'Authorization: Bearer ' . $this->accessToken,
-            'x-tenant-token: ' . $this->tenantToken,
-        ));
+            'x-tenant-token: ' . $this->tenantToken
+        ), $additionalHeaders));
     }
 
     /**
@@ -158,8 +158,6 @@ class Client
      */
     public function request($method, string $endpoint = '/', $payload = null)
     {
-        $this->setApiClientHeaders();
-
         // Formats url for the request. It ensures that you can use
         // beginning and trailing slashes without running into issues
         $url = rtrim($this->baseUrl, '/') . '/' . $this->serviceName . rtrim('/' . ltrim($endpoint, '/'), '/');
@@ -168,10 +166,12 @@ class Client
             case 'GET':
             case 'DELETE':
                 $url = $payload ? $url . '?' . http_build_query($payload) : $url;
+                $this->setApiClientHeaders();
                 break;
             case 'POST':
                 curl_setopt($this->curl, CURLOPT_POST, true);
-                curl_setopt($this->curl, CURLOPT_POSTFIELDS, $payload);
+                curl_setopt($this->curl, CURLOPT_POSTFIELDS, json_encode($payload));
+                $this->setApiClientHeaders(['Content-Type: application/json']);
                 break;
             default:
                 throw new \Exception('Undefined HTTP method', 1);
@@ -183,7 +183,7 @@ class Client
         $httpCode = curl_getinfo($this->curl, CURLINFO_HTTP_CODE);
 
         // Error handling
-        if (substr(strval($httpCode), 0, 1) !== "2" && $httpCode !== 404) {
+        if (substr(strval($httpCode), 0, 1) !== "2" && $httpCode !== 404 && $httpCode !== 400) {
             throw new \Exception('Unhandled HTTP code from response: ' . $httpCode, 1);
         }
 
