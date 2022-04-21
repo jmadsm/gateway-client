@@ -7,17 +7,11 @@ require_once (__DIR__ . '/config.php');
 use JmaDsm\GatewayClient\Client;
 use JmaDsm\GatewayClient\ApiObjects\Category;
 
-// Configure the client singleton, this allow
+// Configure the client singleton, this allows
 // all the ApiObjects to perform requests using
 // this configuration
-//Client::getInstance(
-//    $config['services']['categories']['endpoint'],
-//    $config['services']['categories']['access_token'],
-//    $config['services']['categories']['tenant_token']
-//);
-$config = getConfig('categories');
 Client::getInstance(
-    $config['endpoint'],
+    $config['base_url'],
     $config['access_token'],
     $config['tenant_token']
 );
