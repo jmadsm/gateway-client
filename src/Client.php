@@ -11,7 +11,7 @@ class Client
      */
     private static $instance;
 
-    private $accessToken, $baseUrl, $curl, $serviceName, $tenantToken;
+    private $accessToken, $baseUrl, $curl, $tenantToken;
 
     /**
      * Gets the active class instance from $instance. If instance is not set
