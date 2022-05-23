@@ -19,15 +19,7 @@ class Product
     public static function all(int $page = 1, $since = null)
     {
         $result = json_decode(Client::getInstance()->get(self::$apiPath . '/products', ['page' => $page, 'since' => $since]));
-        $products = $result->data;
-
-        // Iterate through remaining category pages
-        while ($result->current_page <= $result->last_page) {
-            $result = json_decode(Client::getInstance()->get(self::$apiPath . '/products', ['page' => ($result->current_page + 1), 'since' => $since]));
-            $products = array_merge($products, $result->data);
-        }
-
-        return new ApiObjectResult($products);
+        return new ApiObjectResult($result, __METHOD__, $page, [$since]);
     }
 
     /**
