@@ -29,12 +29,12 @@ class ApiObjectResult
      */
     private function updateThisObject($result, $method, $page, $parameters): void
     {
-        $this->data           = $result->data;
+        $this->data           = $result->data ?: null;
         $this->method         = $method;
         $this->page           = $page;
         $this->parameters     = $parameters;
-        $this->to             = $result->to;
-        $this->total          = $result->total;
+        $this->to             = $result->to ?: 0;
+        $this->total          = $result->total ?: 0;
     }
 
     /**
@@ -65,8 +65,7 @@ class ApiObjectResult
         // First element: do nothing
         if ($this->firstElement) {
             $this->firstElement = false;
-
-            return true;
+            return isset($this->data);
         }
 
         // If there are more elements left on the current page, step to the next one and return true
