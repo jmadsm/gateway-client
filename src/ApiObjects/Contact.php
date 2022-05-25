@@ -17,15 +17,7 @@ class Contact
     public static function all(int $page = 1, $since = null)
     {
         $result = json_decode(Client::getInstance()->get(self::$apiPath . '/contacts', ['page' => $page, 'since' => $since]));
-        $contacts = $result->data;
-
-        // Iterate through remaining contacts pages
-        while ($result->current_page <= $result->last_page) {
-            $result = json_decode(Client::getInstance()->get(self::$apiPath . '/contacts', ['page' => ($result->current_page + 1), 'since' => $since]));
-            $contacts = array_merge($contacts, $result->data);
-        }
-
-        return new ApiObjectResult($contacts);
+        return new ApiObjectResult($result, __METHOD__, $page, [$since]);
     }
 
     /**
@@ -37,7 +29,7 @@ class Contact
     public static function get($id)
     {
         $result = json_decode(Client::getInstance()->get(self::$apiPath . '/contacts/' . $id));
-        return new ApiObjectResult($result->data);
+        return new ApiObjectResult($result);
     }
 
     /**

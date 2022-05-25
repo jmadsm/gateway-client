@@ -16,8 +16,17 @@ Client::getInstance(
     $config['tenant_token']
 );
 
+/*
+$contacts = Contact::all(1);
+$contacts = Contact::since("2021-10-05");
+
+while($contact = $contacts->next()) {
+    var_dump($contact->name);
+}
+*/
+
 var_dump(
-   // Contact::all()->next(),
-    Contact::since("2022-10-05")->next(),
-    //Contact::get("E005375")->next()
+//   Contact::all()->next(),
+//   Contact::since("2021-10-05")->next(),
+   Contact::get("E005375")->next()
 );
