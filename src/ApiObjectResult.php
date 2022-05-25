@@ -15,9 +15,9 @@ class ApiObjectResult
     /**
      * @param $result
      * @param $method
-     * @param $parameters
+     * @param array $parameters
      */
-    public function __construct($result, $method, $page, $parameters)
+    public function __construct($result, string $method = '', int $page = 1, array $parameters = [])
     {
         $this->updateThisObject($result, $method, $page, $parameters);
     }
