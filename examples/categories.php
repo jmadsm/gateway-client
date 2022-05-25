@@ -16,8 +16,16 @@ Client::getInstance(
     $config['tenant_token']
 );
 
+/*
+$categories = Category::all(1);
+
+while($category = $categories->next()) {
+    var_dump($category->name);
+}
+*/
+
 var_dump(
-    Category::all(1)->next(), // get all categories
-//    Category::since("2022-03-18T13:06:09.147Z")->next(), // get categories changed since the specified datetime
-//    Category::get(31)->next() // get a specific category
+//    Category::all(1), // get all categories
+    Category::since("2022-03-18T13:06:09.147Z"), // get categories changed since the specified datetime
+//    Category::get(31) // get a specific category
 );

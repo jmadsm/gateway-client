@@ -32,7 +32,7 @@ class Product
     {
         $result = json_decode(Client::getInstance()->get(self::$apiPath . '/products/' . $id));
 
-        return new ApiObjectResult($result->data);
+        return new ApiObjectResult($result);
     }
 
     /**
