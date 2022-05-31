@@ -54,6 +54,16 @@ class ApiObjectResult
     }
 
     /**
+     * Return the element that is currently pointed to
+     * This will return the first element, when ApiObjectResult is newly created
+     *
+     * @return false|mixed
+     */
+    public function getCurrentElement() {
+        return current($this->data);
+    }
+
+    /**
      * Point to the next element to be returned, and return true.
      * If there are no more elements, get the next page, which will point to the first element on that page.
      * If there are still no more elements, return false
