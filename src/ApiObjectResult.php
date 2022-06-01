@@ -59,7 +59,12 @@ class ApiObjectResult
      *
      * @return false|mixed
      */
-    public function getCurrentElement() {
+    public function getCurrentElement()
+    {
+        if (is_null($this->data)) {
+            return null;
+        }
+
         return current($this->data);
     }
 
@@ -75,12 +80,15 @@ class ApiObjectResult
         // First element: do nothing
         if ($this->firstElement) {
             $this->firstElement = false;
+
             return isset($this->data);
         }
 
         // If there are more elements left on the current page, step to the next one and return true
         next($this->data);
-        if (current($this->data)) return true;
+        if (current($this->data)) {
+            return true;
+        }
 
         // If no more elements are left: get the next page if it exists. Return false if not
         return $this->getNextPage();
