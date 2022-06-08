@@ -5,7 +5,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/config.php';
 
 use JmaDsm\GatewayClient\Client;
-use JmaDsm\GatewayClient\ApiObjects\Product;
+use JmaDsm\GatewayClient\ApiObjects\ReplacementProduct;
 // Configure the client singleton, this allows
 // all the ApiObjects to perform requests using
 // this configuration
@@ -15,11 +15,11 @@ Client::getInstance(
     $config['tenant_token']
 );
 //var_dump($config);
-$products = Product::all(1);
-//die(var_dump($products->getCurrentElement()->updated_at));
+$replacementproducts = ReplacementProduct::all(1);
+//die(var_dump($replacementproducts->getCurrentElement()->updated_at));
 
-while($product = $products->next()) {
-    var_dump($product->sku);
+while($replacementproduct = $replacementproducts->next()) {
+    var_dump($replacementproduct->sku);
 }
 
 //var_dump(
