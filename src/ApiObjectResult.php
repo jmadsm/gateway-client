@@ -10,6 +10,7 @@ class ApiObjectResult
     protected int $to;
     protected int $total;
     protected int $page;
+    protected array $content;
     protected bool $firstElement = true;
 
     /**
@@ -29,12 +30,13 @@ class ApiObjectResult
      */
     private function updateThisObject($result, $method, $page, $parameters): void
     {
-        $this->data           = $result->data ?: null;
+        $this->data           = $result->data ?? null;
         $this->method         = $method;
         $this->page           = $page;
         $this->parameters     = $parameters;
-        $this->to             = $result->to ?: 0;
-        $this->total          = $result->total ?: 0;
+        $this->to             = $result->to ?? 0;
+        $this->total          = $result->total ?? 0;
+        $this->content        = (array) $result ?? [];
     }
 
     /**
