@@ -115,4 +115,60 @@ class ApiObjectResult
 
         return true;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getData()
+    {
+        return $this->data;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMethod(): string
+    {
+        return $this->method;
+    }
+
+    /**
+     * @return array
+     */
+    public function getParameters(): array
+    {
+        return $this->parameters;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTo(): int
+    {
+        return $this->to;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTotal(): int
+    {
+        return $this->total;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPage(): int
+    {
+        return $this->page;
+    }
+
+    /**
+     * @return array
+     */
+    public function getContent(): array
+    {
+        return $this->content;
+    }
 }
