@@ -171,12 +171,4 @@ class ApiObjectResult
     {
         return $this->content;
     }
-
-    /**
-     * @return bool
-     */
-    public function isFirstElement(): bool
-    {
-        return $this->firstElement;
-    }
 }
