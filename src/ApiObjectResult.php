@@ -61,7 +61,7 @@ class ApiObjectResult
      *
      * @return false|mixed
      */
-    public function getCurrentElement($full = false)
+    public function getCurrentElement()
     {
         if (is_null($this->data)) {
             return null;
