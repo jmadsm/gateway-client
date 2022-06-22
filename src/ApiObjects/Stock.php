@@ -8,38 +8,41 @@ use JmaDsm\GatewayClient\Client;
 class Stock
 {
     private static string $apiPath = '/stock/api/v1';
+    //private static string $apiPath = '/api';
 
     /**
-     * Returns all categories
-     *
+     * Returns all stocks
+     * @param $locations
      * @param $since
      * @return JmaDsm\GatewayClient\ApiObjectResult;
      */
     public static function all($locations = [], $since = null)
     {
         $result = json_decode(Client::getInstance()->get(self::$apiPath . '/stock', ['locations' => $locations, 'from' => $since]));
+        //var_dump($result);
 
-        //return new ApiObjectResult($result, __METHOD__, $page, [$since]);
+        return new ApiObjectResult($result, __METHOD__);
     }
 
     /**
-     * Returns specific category
+     * Returns specific stock
      *
      * @param $id
      * @return ApiObjectResult
      */
     public static function get($id)
     {
-        $result = json_decode(Client::getInstance()->get(self::$apiPath . '/sku=' . $id));
+        $result = json_decode(Client::getInstance()->get(self::$apiPath . '/product', ['sku' => $id]));
+        var_dump($result);
 
-        //return new ApiObjectResult($result);
+        return new ApiObjectResult($result);
     }
 
     /**
-     * Returns categories changed since $from date. Defaults to page 1
+     *
      *
      * @param $since
-     * @param int $page
+     * @param int $locations
      * @return ApiObjectResult
      */
     public static function since($since, $locations = [])
