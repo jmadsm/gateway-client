@@ -25,8 +25,8 @@ while($contact = $contacts->next()) {
 }
 */
 
-var_dump(
-//   Contact::all()->next(),
-//   Contact::since("2021-10-05")->next(),
-   Stock::get('OR2020')->next()
-);
+//var_dump(
+//    Stock::all(['H', 'B2'], 1207750)->getData(),
+//   Stock::since("2021-10-05")->next(),
+//   Stock::get('OR1030')->next()
+//);
