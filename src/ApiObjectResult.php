@@ -30,7 +30,7 @@ class ApiObjectResult
      */
     private function updateThisObject($result, $method, $page, $parameters): void
     {
-        $this->data           = $result->data ?? $result->items ?? null;
+        $this->data           = $result->data ?? $result ?? null;
         $this->method         = $method;
         $this->page           = $page;
         $this->parameters     = $parameters;

@@ -33,7 +33,6 @@ class Stock
     public static function get($id)
     {
         $result = json_decode(Client::getInstance()->get(self::$apiPath . '/product', ['sku' => $id]));
-        var_dump($result);
 
         return new ApiObjectResult($result);
     }
