@@ -8,7 +8,6 @@ use JmaDsm\GatewayClient\Client;
 class Stock
 {
     private static string $apiPath = '/stock/api/v1';
-    //private static string $apiPath = '/api';
 
     /**
      * Returns all stocks
