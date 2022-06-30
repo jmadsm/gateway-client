@@ -7,7 +7,8 @@ use JmaDsm\GatewayClient\Client;
 
 class Contact
 {
-    private static string $apiPath = '/contact/api/v1';
+//    private static string $apiPath = '/contact/api/v1';
+    private static string $apiPath = '/api';
 
     /**
      * Returns all contacts

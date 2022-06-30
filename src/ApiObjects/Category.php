@@ -7,8 +7,8 @@ use JmaDsm\GatewayClient\Client;
 
 class Category
 {
-    private static string $apiPath = '/product/api/v1';
-//    private static string $apiPath = '/api';
+//    private static string $apiPath = '/product/api/v1';
+    private static string $apiPath = '/api';
 
     /**
      * Returns all categories

@@ -7,7 +7,8 @@ use JmaDsm\GatewayClient\Client;
 
 class ReplacementProduct
 {
-    private static string $apiPath = '/replacementproduct/api/v1';
+//    private static string $apiPath = '/replacementproduct/api/v1';
+    private static string $apiPath = '/api';
 
     /**
      * Returns all categories
