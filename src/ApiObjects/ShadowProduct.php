@@ -45,6 +45,6 @@ class ShadowProduct
      */
     public static function since($since, $page = 1)
     {
-        return Product::all($page, $since);
+        return ShadowProduct::all($page, $since);
     }
 }
