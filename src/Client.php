@@ -171,7 +171,8 @@ class Client
 
         // Error handling
         if (substr(strval($httpCode), 0, 1) !== "2" && $httpCode !== 404 && $httpCode !== 400) {
-            throw new \Exception('Unhandled HTTP code from response: ' . $httpCode, 1);
+            $message = isset(json_decode($response)->message) ? '. Error message: ' . json_decode($response)->message : '';
+            throw new \Exception("Unhandled HTTP code({$httpCode}) from response: " . $message, 1);
         }
 
         return $response;
