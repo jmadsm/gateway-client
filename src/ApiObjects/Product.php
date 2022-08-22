@@ -16,9 +16,10 @@ class Product
      * @param $since
      * @return JmaDsm\GatewayClient\ApiObjectResult;
      */
-    public static function all(int $page = 1, $since = null)
+    public static function all(int $page = 1, $since = null, array $locations = [])
     {
-        $result = json_decode(Client::getInstance()->get(self::$apiPath . '/products', ['page' => $page, 'since' => $since]));
+        $result = json_decode(Client::getInstance()->get(self::$apiPath . '/products', ['page' => $page, 'since' => $since, 'locations' => $locations]));
+
         return new ApiObjectResult($result, __METHOD__, $page, [$since]);
     }
 
@@ -28,9 +29,9 @@ class Product
      * @param $id
      * @return ApiObjectResult
      */
-    public static function get($id)
+    public static function get($id, array $locations = [])
     {
-        $result = json_decode(Client::getInstance()->get(self::$apiPath . '/products/' . $id));
+        $result = json_decode(Client::getInstance()->get(self::$apiPath . '/products/' . $id, ['locations' => $locations]));
 
         return new ApiObjectResult($result);
     }
@@ -42,8 +43,8 @@ class Product
      * @param int $page
      * @return ApiObjectResult
      */
-    public static function since($since, $page = 1)
+    public static function since($since, $page = 1, array $locations = [])
     {
-        return Product::all($page, $since);
+        return Product::all($page, $since, $locations);
     }
 }

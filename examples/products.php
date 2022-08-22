@@ -15,15 +15,17 @@ Client::getInstance(
     $config['tenant_token']
 );
 //var_dump($config);
-$products = Product::all(1);
+$products = Product::all(1, null, ['H', 'STPR']);
+//$products = Product::since('2022-04-18T13:06:09.147Z', 1, ['Hx', 'H']);
 //die(var_dump($products->getCurrentElement()->updated_at));
 
 while($product = $products->next()) {
-    var_dump($product->sku);
+    var_dump($product->sku, $product->inventory);
 }
 
 //var_dump(
 //    Product::all(1)->next(),
-//    Product::since('2022-04-18T13:06:09.147Z')->next()
-//    Product::get('WE18880')->next()
+//    Product::all(1, null, ['H', 'STPR'])->next(),
+//    Product::since('2022-04-18T13:06:09.147Z', 1, ['H'])->next()
+//    Product::get('OR1030', ['H'])->next()
 //);
