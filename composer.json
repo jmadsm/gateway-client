@@ -1,7 +1,7 @@
 {
     "name": "jmadsm/gateway-client",
     "description": "PHP Client for JMA's Data API's.",
-    "version": "2.2.2",
+    "version": "2.2.3",
     "type": "library",
     "license": "MIT",
     "authors": [
