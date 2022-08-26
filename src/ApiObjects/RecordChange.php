@@ -16,9 +16,10 @@ class RecordChange
      * @param $since
      * @return JmaDsm\GatewayClient\ApiObjectResult;
      */
-    public static function all(int $page = 1, $since = null)
+    public static function all(int $page = 1, $since = null): ApiObjectResult
     {
-        $result = json_decode(Client::getInstance()->get(self::$apiPath . '/recordchanges', ['page' => $page, 'since' => $since]));
+        $result = json_decode(Client::getInstance()->get(self::$apiPath . '/recordchanges',
+            ['page' => $page, 'since' => $since]));
 
         return new ApiObjectResult($result, __METHOD__, $page, [$since]);
     }
@@ -26,27 +27,29 @@ class RecordChange
     /**
      * Returns recordchanges from a specific table
      *
-     * @param $tableName
+     * @param string $tableName
      * @return ApiObjectResult
      */
-    public static function tableName($tableName)
+    public static function tableName(int $page, string $tableName, $since = null): ApiObjectResult
     {
-        $result = json_decode(Client::getInstance()->get(self::$apiPath . '/recordchanges/tablename/' . urlencode($tableName)));
+        $result = json_decode(Client::getInstance()->get(self::$apiPath . '/recordchanges/tablename/' . urlencode($tableName),
+            ['page' => $page, 'since' => $since]));
 
-        return new ApiObjectResult($result);
+        return new ApiObjectResult($result, __METHOD__, $page, [$tableName, $since]);
     }
 
     /**
      * Returns recordchanges from a specific table
      *
-     * @param $tableId
+     * @param int $tableId
      * @return ApiObjectResult
      */
-    public static function tableId($tableId)
+    public static function tableId(int $page = 1, int $tableId, $since = null): ApiObjectResult
     {
-        $result = json_decode(Client::getInstance()->get(self::$apiPath . '/recordchanges/tableid/' . $tableId));
+        $result = json_decode(Client::getInstance()->get(self::$apiPath . '/recordchanges/tableid/' . $tableId,
+            ['page' => $page, 'since' => $since]));
 
-        return new ApiObjectResult($result);
+        return new ApiObjectResult($result, __METHOD__, $page, [$tableId, $since]);
     }
 
     /**
@@ -56,7 +59,7 @@ class RecordChange
      * @param int $page
      * @return ApiObjectResult
      */
-    public static function since($since, $page = 1)
+    public static function since($since, $page = 1): ApiObjectResult
     {
         return RecordChange::all($page, $since);
     }
