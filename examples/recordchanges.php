@@ -16,7 +16,7 @@ Client::getInstance(
     $config['tenant_token']
 );
 $recordchanges = RecordChange::all(1);
-//$recordchanges = RecordChange::tableId(1, 2222222, '2021-04-18T13:06:09.147Z');
+//$recordchanges = RecordChange::tableId(1, "01265201", '2021-04-18T13:06:09.147Z');
 //$recordchanges = RecordChange::tableName(1, 'Nonstock Item', '2021-04-18T13:06:09.147Z');
 
 while($recordchange = $recordchanges->next()) {

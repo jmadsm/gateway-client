@@ -44,7 +44,7 @@ class RecordChange
      * @param int $tableId
      * @return ApiObjectResult
      */
-    public static function tableId(int $page = 1, int $tableId, $since = null): ApiObjectResult
+    public static function tableId(int $page = 1, string $tableId, $since = null): ApiObjectResult
     {
         $result = json_decode(Client::getInstance()->get(self::$apiPath . '/recordchanges/tableid/' . $tableId,
             ['page' => $page, 'since' => $since]));
