@@ -47,4 +47,54 @@ class Product
     {
         return Product::all($page, $since, $locations);
     }
+
+    /**
+     * Returns net price on orderline from DSM calculation
+     *
+     * @param string $productNo
+     * @param string $debitorNo
+     * @param int $qty
+     * @return decimal calculated NET price on order line
+     */
+    public static function netPriceOrderLine($productNo, $debitorNo, $qty)
+    {
+        $result = json_decode('{
+            "current_page": 1,
+            "data": [
+                {
+                    "line_price": 1295.20,
+                    "stub": true
+                }
+            ],
+            "first_page_url": "/?page=1",
+            "from": 1,
+            "last_page": 1,
+            "last_page_url": "/?page=1",
+            "links": [
+                {
+                    "url": null,
+                    "label": "&laquo; Previous",
+                    "active": false
+                },
+                {
+                    "url": "/?page=1",
+                    "label": "1",
+                    "active": true
+                },
+                {
+                    "url": null,
+                    "label": "Next &raquo;",
+                    "active": false
+                }
+            ],
+            "next_page_url": null,
+            "path": "/",
+            "per_page": "500",
+            "prev_page_url": null,
+            "to": 1,
+            "total": null
+        }');
+
+        return new ApiObjectResult($result);
+    }
 }
