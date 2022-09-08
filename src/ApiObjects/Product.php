@@ -54,7 +54,7 @@ class Product
      * @param string $productNo
      * @param string $debitorNo
      * @param int $qty
-     * @return decimal calculated NET price on order line
+     * @return ApiObjectResult
      */
     public static function netPriceOrderLine($productNo, $debitorNo, $qty)
     {
