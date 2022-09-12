@@ -49,52 +49,18 @@ class Product
     }
 
     /**
-     * Returns net price on orderline from DSM calculation
+     * Returns net price from DSM calculation
      *
-     * @param string $productNo
-     * @param string $debitorNo
-     * @param int $qty
+     * @param string $productNumber
+     * @param string $debitorNumber
+     * @param int $quantity
      * @return ApiObjectResult
      */
-    public static function netPriceOrderLine($productNo, $debitorNo, $qty)
+    public static function netPrice($productNumber, $debitorNumber, $quantity)
     {
-        $result = json_decode('{
-            "current_page": 1,
-            "data": [
-                {
-                    "line_price": 1295.20,
-                    "stub": true
-                }
-            ],
-            "first_page_url": "/?page=1",
-            "from": 1,
-            "last_page": 1,
-            "last_page_url": "/?page=1",
-            "links": [
-                {
-                    "url": null,
-                    "label": "&laquo; Previous",
-                    "active": false
-                },
-                {
-                    "url": "/?page=1",
-                    "label": "1",
-                    "active": true
-                },
-                {
-                    "url": null,
-                    "label": "Next &raquo;",
-                    "active": false
-                }
-            ],
-            "next_page_url": null,
-            "path": "/",
-            "per_page": "500",
-            "prev_page_url": null,
-            "to": 1,
-            "total": null
-        }');
+        $result = json_decode(Client::getInstance()->get(self::$apiPath . "/netprice/" . urlencode($productNumber) . "/" . urlencode($debitorNumber) . "/" . urlencode($quantity)));
 
+//die(var_dump($result));
         return new ApiObjectResult($result);
     }
 }

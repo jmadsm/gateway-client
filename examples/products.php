@@ -23,11 +23,12 @@ while($product = $products->next()) {
     var_dump($product->sku, $product->inventory);
 }
 
-//var_dump(
+var_dump(
 //    Product::all(1)->next(),
 //    Product::all(1, null, ['H', 'STPR'])->next(),
 //    Product::since('2022-04-18T13:06:09.147Z', 1, ['H'])->next()
 //    Product::get('OR1030', ['H'])->next()
-//    Product::netPriceOrderLine("ABC123", "370", 4);
-//);
+//    Product::netPrice("ABC123", "370", 4)
+//    Product::netPrice("20266673", "0 434 250 014", 4)->getCurrentElement()->unit_price
+);
 
