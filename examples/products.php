@@ -15,13 +15,13 @@ use JmaDsm\GatewayClient\ApiObjects\Product;
      $config['tenant_token']
 );
 //var_dump($config);
-$products = Product::all(1, null, ['H', 'STPR']);
+//$products = Product::all(1, null, ['H', 'STPR']);
 //$products = Product::since('2022-04-18T13:06:09.147Z', 1, ['Hx', 'H']);
 //die(var_dump($products->getCurrentElement()->updated_at));
 
-while($product = $products->next()) {
-    var_dump($product->sku, $product->inventory);
-}
+//while($product = $products->next()) {
+//    var_dump($product->sku, $product->inventory);
+//}
 
 var_dump(
 //    Product::all(1)->next(),
@@ -30,5 +30,8 @@ var_dump(
 //    Product::get('OR1030', ['H'])->next()
 //    Product::netPrice("ABC123", "370", 4)
 //    Product::netPrice("20266673", "0 434 250 014", 4)->getCurrentElement()->unit_price
+//    Product::netPrice("20266673", "0 434 250 014", 4)->getCurrentElement()->unit_price
+//    Product::netPrice("20266673", "0 434 250 014", 4)->getCurrentElement()
+    Product::netPrice("20266673", "0 434 250 014", 4)->getCurrentElement()
 );
 
