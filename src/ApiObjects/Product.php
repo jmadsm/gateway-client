@@ -56,9 +56,9 @@ class Product
      * @param int $quantity
      * @return ApiObjectResult
      */
-    public static function netPrice($debitorNumber, $productNumber, $quantity)
+    public static function netPrice($debitorNumber, $productNumber, $quantity, $ordertype = null)
     {
-        $result = json_decode(Client::getInstance()->get(self::$apiPath . "/netprice/" . urlencode($debitorNumber) . "/" . urlencode($productNumber) . "/" . urlencode($quantity)));
+        $result = json_decode(Client::getInstance()->get(self::$apiPath . "/netprice/" . urlencode($debitorNumber) . "/" . urlencode($productNumber) . "/" . urlencode($quantity), ['ordertype' => $ordertype]));
 
         return new ApiObjectResult($result);
     }
