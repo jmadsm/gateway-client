@@ -16,19 +16,19 @@ class Product
      * @param $since
      * @return JmaDsm\GatewayClient\ApiObjectResult;
      */
-    public static function all(int $page = 1, $since = null, array $locations = [], $sinceorder = null, array $expandoptions = null)
+    public static function all(int $page = 1, $since = null, array $locations = [], $sinceorder = null, array $expandoptions = [])
     {
         $endpoint = self::$apiPath . '/products';
         $payload  = ['page' => $page, 'since' => $since, 'locations' => $locations, 'sinceorder' => $sinceorder];
 
         if ($expandoptions) {
             $endpoint  = self::$apiPath . '/productslimited';
-            $payload[] = $expandoptions;
+            $payload['expandOptions'] = $expandoptions;
         }
 
         $result = json_decode(Client::getInstance()->get($endpoint, $payload));
 
-        return new ApiObjectResult($result, __METHOD__, $page, [$since]);
+        return new ApiObjectResult($result, __METHOD__, $page, [$since, $locations, $sinceorder, $expandoptions]);
     }
 
     /**

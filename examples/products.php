@@ -25,7 +25,7 @@ use JmaDsm\GatewayClient\ApiObjects\Product;
 //}
 
 var_dump(
-    Product::all(1, null, [], 'asc')->next(),
+    Product::all(1, null, [], 'asc', ['notes', 'categories']),
 //    Product::all(1)->next(),
 //    Product::all(1, null, ['H', 'STPR'])->next(),
 //    Product::since('2022-04-18T13:06:09.147Z', 1, ['H'])->next()
@@ -34,5 +34,4 @@ var_dump(
 //    Product::netPrice("ABC123", "370", 4)
 //    Product::netPrice("20266673", "0 434 250 014", 4, 'web')->getCurrentElement()->ordertype
 //    Product::netPrice("20266673", "0 434 250 014", 4, 'web')->getCurrentElement()
-
 );
