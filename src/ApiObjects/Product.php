@@ -16,9 +16,17 @@ class Product
      * @param $since
      * @return JmaDsm\GatewayClient\ApiObjectResult;
      */
-    public static function all(int $page = 1, $since = null, array $locations = [], $sinceorder = null)
+    public static function all(int $page = 1, $since = null, array $locations = [], $sinceorder = null, array $expandoptions = null)
     {
-        $result = json_decode(Client::getInstance()->get(self::$apiPath . '/products', ['page' => $page, 'since' => $since, 'locations' => $locations, 'sinceorder' => $sinceorder]));
+        $endpoint = self::$apiPath . '/products';
+        $payload  = ['page' => $page, 'since' => $since, 'locations' => $locations, 'sinceorder' => $sinceorder];
+
+        if ($expandoptions) {
+            $endpoint  = self::$apiPath . '/productslimited';
+            $payload[] = $expandoptions;
+        }
+
+        $result = json_decode(Client::getInstance()->get($endpoint, $payload));
 
         return new ApiObjectResult($result, __METHOD__, $page, [$since]);
     }
@@ -43,9 +51,9 @@ class Product
      * @param int $page
      * @return ApiObjectResult
      */
-    public static function since($since, $page = 1, array $locations = [], $sinceorder = null)
+    public static function since($since, $page = 1, array $locations = [], $sinceorder = null, array $expandoptions = null)
     {
-        return Product::all($page, $since, $locations, $sinceorder);
+        return Product::all($page, $since, $locations, $sinceorder, $expandoptions);
     }
 
     /**
@@ -58,7 +66,7 @@ class Product
      */
     public static function netPrice($debitorNumber, $productNumber, $quantity, $ordertype = null)
     {
-        $result = json_decode(Client::getInstance()->get(self::$apiPath . "/netprice/" . urlencode($debitorNumber) . "/" . urlencode($productNumber) . "/" . urlencode($quantity), ['ordertype' => $ordertype]));
+        $result = json_decode(Client::getInstance()->get(self::$apiPath . '/netprice/' . urlencode($debitorNumber) . '/' . urlencode($productNumber) . '/' . urlencode($quantity), ['ordertype' => $ordertype]));
 
         return new ApiObjectResult($result);
     }
