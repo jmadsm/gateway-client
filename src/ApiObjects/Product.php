@@ -16,7 +16,7 @@ class Product
      * @param $since
      * @return JmaDsm\GatewayClient\ApiObjectResult;
      */
-    public static function all(int $page = 1, $since = null, array $locations = [], $sinceorder = null, array $expandoptions = [])
+    public static function all(int $page = 1, $since = null, array $locations = [], $sinceorder = null, array $expandoptions = null)
     {
         $endpoint = self::$apiPath . '/products';
         $payload  = ['page' => $page, 'since' => $since, 'locations' => $locations, 'sinceorder' => $sinceorder];
