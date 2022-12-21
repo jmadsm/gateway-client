@@ -52,6 +52,6 @@ class ProductTemplate
      */
     public static function since($since, $page = 1, $sinceorder = null, array $expandoptions = null)
     {
-        return Template::all($page, $since, $sinceorder, $expandoptions);
+        return ProductTemplate::all($page, $since, $sinceorder, $expandoptions);
     }
 }
