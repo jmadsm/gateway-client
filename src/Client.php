@@ -171,8 +171,15 @@ class Client
 
         // Error handling
         if (substr(strval($httpCode), 0, 1) !== "2" && $httpCode !== 404 && $httpCode !== 400) {
+            $messageHint = match ($httpCode) {
+                0 => "Please check your hostname and port. ",
+                500 => 'Please check your tenant token. ',
+                default => '',
+            };
+
             $message = isset(json_decode($response)->message) ? '. Error message: ' . json_decode($response)->message : '';
-            throw new \Exception("Unhandled HTTP code({$httpCode}) from response: " . $message, 1);
+
+            throw new \Exception($messageHint . "Unhandled HTTP code({$httpCode}) from response: " . $message, 1);
         }
 
         return $response;
