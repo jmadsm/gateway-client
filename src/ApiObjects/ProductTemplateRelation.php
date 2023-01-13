@@ -3,13 +3,11 @@
 namespace JmaDsm\GatewayClient\ApiObjects;
 
 use JmaDsm\GatewayClient\ApiObjectResult;
-
 use JmaDsm\GatewayClient\Client;
 
 class ProductTemplateRelation
 {
-//    private static string $apiPath = '/product/api/v1';
-    private static string $apiPath = '/api';
+    private static string $apiPath = '/product/api/v1';
 
     /**
      * Returns all product template relations
@@ -27,7 +25,7 @@ class ProductTemplateRelation
         }
 
         $result = json_decode(Client::getInstance()->get($endpoint, $payload));
-//die(var_dump($result));
+        //die(var_dump($result));
         return new ApiObjectResult($result, __METHOD__, $page, [$expandoptions]);
     }
 
