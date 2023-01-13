@@ -10,16 +10,16 @@ class ProductTemplate
     private static string $apiPath = '/product/api/v1';
 
     /**
-     * Returns all categories
+     * Returns all templates
      *
      * @param int $page
      * @param $since
      * @return JmaDsm\GatewayClient\ApiObjectResult;
      */
-    public static function all(int $page = 1, $since = null, $sinceorder = null, array $expandoptions = null)
+    public static function all(int $page = 1, array $expandoptions = null)
     {
         $endpoint = self::$apiPath . '/producttemplates';
-        $payload  = ['page' => $page, 'since' => $since, 'sinceorder' => $sinceorder];
+        $payload  = ['page' => $page];
 
         if ($expandoptions) {
             $payload['expandOptions'] = $expandoptions;
@@ -27,11 +27,11 @@ class ProductTemplate
 
         $result = json_decode(Client::getInstance()->get($endpoint, $payload));
 
-        return new ApiObjectResult($result, __METHOD__, $page, [$since, $sinceorder, $expandoptions]);
+        return new ApiObjectResult($result, __METHOD__, $page, [$expandoptions]);
     }
 
     /**
-     * Returns specific category
+     * Returns specific template
      *
      * @param $id
      * @return ApiObjectResult
@@ -41,17 +41,5 @@ class ProductTemplate
         $result = json_decode(Client::getInstance()->get(self::$apiPath . '/producttemplates/' . $id));
 
         return new ApiObjectResult($result);
-    }
-
-    /**
-     * Returns categories changed since $from date. Defaults to page 1
-     *
-     * @param $since
-     * @param int $page
-     * @return ApiObjectResult
-     */
-    public static function since($since, $page = 1, $sinceorder = null, array $expandoptions = null)
-    {
-        return ProductTemplate::all($page, $since, $sinceorder, $expandoptions);
     }
 }
