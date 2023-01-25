@@ -15,11 +15,11 @@ Client::getInstance(
     $config['access_token'],
     $config['tenant_token']
 );
-
-var_dump(
+$uniqueOrderNumber = date('Y-m-d-H:i:s');
+/*var_dump(
    Order::create([
-    "order_number" => "TEST-00000000000000000000000000000000000000000000000000000001",
-    "date" => "2021-10-14",
+    "order_number" => "Order-" . $uniqueOrderNumber,
+    "date" => date("Y-m-d"),
     "payment_method" => "quickpay",
     "shipping_method" => "bring",
     "email" => "john@doe.com",
@@ -42,4 +42,77 @@ var_dump(
         ]
     ]
    ]),
+);*/
+
+var_dump(
+    Order::createMachine(
+        [
+            "order_number" => "MachineOrder-" . $uniqueOrderNumber,
+            "date" => date("Y-m-d"),
+            "payment_method" => "BANK",
+            "shipping_method" => "CIF",
+            "email" => "odm+branchdebitor@jma.dk",
+            "type" => "machine",
+            "shipping_contact" => [
+                "firstname" => "Sven",
+                "lastname" => " Svensson",
+                "email" => "odm+branchdebitor@jma.dk",
+                "phone" => "22558666",
+                "address" => "Tegelbruksgatan 3",
+                "address_2" => "",
+                "city" => "KVÄNUM",
+                "postcode" => "535 30",
+                "country" => "SE",
+                "company" => "Söderberg & Haak Kvänum AB"
+            ],
+            "billing_contact" => [
+                "firstname" => "Sven",
+                "lastname" => " Svensson",
+                "email" => "odm+branchdebitor@jma.dk",
+                "phone" => "22558666",
+                "address" => "Tegelbruksgatan 3",
+                "address_2" => "",
+                "city" => "KVÄNUM",
+                "postcode" => "535 30",
+                "country" => "SE",
+                "company" => "Söderberg & Haak Kvänum AB"
+            ],
+            "lines" => [
+                [
+                    "name" => "ZA Super, bas gödningsspridare",
+                    "sku" => "AMA117304-3",
+                    "price" => "31779.8",
+                    "quantity" => "1"
+                ],
+                [
+                    "name" => "Söderberg & Haak Distribution",
+                    "price" => "0",
+                    "quantity" => "1",
+                    "sku" => "FR20"
+                ]
+            ],
+            "line_configurations" => [
+                [
+                    "id" => "2795",
+                    "description" => "ZA Super, bas gödningsspridare",
+                    "quantity" => 1
+                ],
+                [
+                    "id" => "2796",
+                    "description" => "Vågsystem för ZA Super",
+                    "quantity" => 1
+                ],
+                [
+                    "id" => "2797",
+                    "description" => "Vågsystem för ZA Super",
+                    "quantity" => 1
+                ]
+            ],
+            "customer_comments" => "",
+            "order_type" => "SMSK",
+            "require_full_delivery" => "true",
+            "customer_id" => "387",
+            "contact_no" => "SOH-001222"
+        ]
+    )
 );
