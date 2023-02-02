@@ -7,8 +7,8 @@ use JmaDsm\GatewayClient\Client;
 
 class Order
 {
-//    private static string $apiPath = '/order/api/v1';
-    private static string $apiPath = '/api';
+    private static string $apiPath = '/order/api/v1';
+    //private static string $apiPath = '/api';
 
     /**
      * Create order
