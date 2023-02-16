@@ -18,15 +18,15 @@ class Product
      */
     public static function all(int $page = 1, $since = null, array $locations = [], $sinceorder = null, array $expandoptions = null)
     {
-        $endpoint = self::$apiPath . '/products';
+        $endpoint = '/products';
         $payload  = ['page' => $page, 'since' => $since, 'locations' => $locations, 'sinceorder' => $sinceorder];
 
         if ($expandoptions) {
             $endpoint  = self::$apiPath . '/productslimited';
             $payload['expandOptions'] = $expandoptions;
         }
-
-        $result = json_decode(Client::getInstance()->get($endpoint, $payload));
+die(self::$apiPath);
+        $result = json_decode(Client::getInstance()->get(self::$apiPath, $endpoint, $payload));
 
         return new ApiObjectResult($result, __METHOD__, $page, [$since, $locations, $sinceorder, $expandoptions]);
     }
@@ -39,7 +39,7 @@ class Product
      */
     public static function get($id, array $locations = [])
     {
-        $result = json_decode(Client::getInstance()->get(self::$apiPath . '/products/' . $id, ['locations' => $locations]));
+        $result = json_decode(Client::getInstance()->get(self::$apiPath, '/products/' . $id, ['locations' => $locations]));
 
         return new ApiObjectResult($result);
     }

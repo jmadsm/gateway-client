@@ -16,7 +16,7 @@ class ProductNote
      */
     public static function get($id)
     {
-        $result = json_decode(Client::getInstance()->get(self::$apiPath . '/notes/' . $id));
+        $result = json_decode(Client::getInstance()->get(self::$apiPath, '/notes/' . $id));
 
         return new ApiObjectResult($result);
     }

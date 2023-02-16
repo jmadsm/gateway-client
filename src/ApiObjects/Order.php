@@ -3,12 +3,13 @@
 namespace JmaDsm\GatewayClient\ApiObjects;
 
 use JmaDsm\GatewayClient\ApiObjectResult;
+//use JmaDsm\GatewayClient\ApiObjects\ApiObject;
 use JmaDsm\GatewayClient\Client;
 
-class Order
+class Order extends ApiObject
 {
-//    private static string $apiPath = '/order/api/v1';
-    private static string $apiPath = '/api';
+    private static string $apiPath = '/order/api/v1';
+//    private static string $apiPath = '/api';
 
     /**
      * Create order
@@ -19,7 +20,7 @@ class Order
      */
     public static function create(array $orderData)
     {
-        $result = json_decode(Client::getInstance()->post(self::$apiPath . '/order', $orderData));
+        $result = json_decode(Client::getInstance()->post(self::$apiPath, '/order', $orderData));
 
         return new ApiObjectResult($result);
     }
@@ -34,7 +35,8 @@ class Order
      */
     public static function createMachine(array $orderData)
     {
-        $result = json_decode(Client::getInstance()->post(self::$apiPath . '/machineorder', $orderData));
+//        die(self::$apiPath);
+        $result = json_decode(Client::getInstance()->post(self::$apiPath, '/machineorder', $orderData));
 
         return new ApiObjectResult($result);
     }

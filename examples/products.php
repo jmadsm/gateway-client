@@ -13,7 +13,8 @@ use JmaDsm\GatewayClient\ApiObjects\Product;
  Client::getInstance(
      $config['base_url'],
      $config['access_token'],
-     $config['tenant_token']
+     $config['tenant_token'],
+     $config['api_path'] ?? null
  );
 //var_dump($config);
 //$products = Product::all(1, null, ['H', 'STPR']);
@@ -25,8 +26,9 @@ use JmaDsm\GatewayClient\ApiObjects\Product;
 //}
 
 var_dump(
-    Product::all(1, null, [], 'asc', ['notes', 'categories']),
-//    Product::all(1)->next(),
+//    Product::all(1, null, [], 'asc', ['notes', 'categories']),
+    Product::all(1)->next(),
+//    Product::all(1),
 //    Product::all(1, null, ['H', 'STPR'])->next(),
 //    Product::since('2022-04-18T13:06:09.147Z', 1, ['H'])->next()
 //    Product::since('2022-04-18T13:06:09.147Z', 1, ['H'], 'desc')->next()

@@ -11,7 +11,7 @@ class Client
      */
     private static $instance;
 
-    private $accessToken, $baseUrl, $curl, $tenantToken;
+    private $accessToken, $baseUrl, $curl, $tenantToken, $apiPath;
 
     /**
      * Gets the active class instance from $instance. If instance is not set
@@ -22,10 +22,10 @@ class Client
      * @param string $tenantToken
      * @return Client
      */
-    public static function getInstance($baseUrl = null, $accessToken = null, $tenantToken = null)
+    public static function getInstance($baseUrl = null, $accessToken = null, $tenantToken = null, $apiPath = null)
     {
         if (!self::$instance) {
-            self::$instance = new self($baseUrl, $accessToken, $tenantToken);
+            self::$instance = new self($baseUrl, $accessToken, $tenantToken, $apiPath);
         }
 
         return self::$instance;
@@ -38,11 +38,12 @@ class Client
      * @param string $accessToken
      * @param string $tenantToken
      */
-    private function __construct($baseUrl = null, $accessToken = null, $tenantToken = null)
+    private function __construct($baseUrl = null, $accessToken = null, $tenantToken = null, $apiPath = null)
     {
         if ($baseUrl) $this->setBaseUrl($baseUrl);
         if ($accessToken) $this->setAccessToken($accessToken);
         if ($tenantToken) $this->setTenantToken($tenantToken);
+        if ($apiPath) $this->setApiPath($apiPath);
 
         $this->curl = curl_init();
 
@@ -112,6 +113,19 @@ class Client
     }
 
     /**
+     * Sets the api path used on every request
+     *
+     * @param string $apiPath
+     * @return Client
+     */
+    public function setApiPath($apiPath)
+    {
+        $this->apiPath = $apiPath;
+
+        return $this;
+    }
+
+    /**
      * Gets the tenant token
      *
      * @return string
@@ -119,6 +133,16 @@ class Client
     public function getTenantToken()
     {
         return $this->tenantToken;
+    }
+
+    /**
+     * Gets the api path
+     *
+     * @return string
+     */
+    public function getApiPath()
+    {
+        return $this->apiPath;
     }
 
     /**
@@ -188,24 +212,28 @@ class Client
     /**
      * Make a GET http request
      *
-     * @param string       $endpoint     Url to append the baseUrl ("$baseUrl/$url")
+     * @param string       $apiPath     Base part of the url to append to the baseUrl: "$baseUrl/$apiPath$url"
+     * @param string       $endpoint    End part of the url to append to the base url and api path
      * @param string|array $payload
      * @return string
      */
-    public function get($endpoint = '', $payload = null)
+    public function get(string $apiPath, $endpoint = '', $payload = null)
     {
-        return $this->request('GET', $endpoint, $payload);
+        $apiPath = $this->apiPath ?? $apiPath;
+        return $this->request('GET', $apiPath . $endpoint, $payload);
     }
 
     /**
      * Make a POST http reqquest
      *
-     * @param string       $endpoint     Url to append the baseUrl ("$baseUrl/$url")
+     * @param string       $apiPath      Base part of the url to append to the baseUrl: "$baseUrl/$apiPath$url"
+     * @param string       $endpoint     End part of the url to append to the base url and api path
      * @param string|array $payload
      * @return string
      */
-    public function post($endpoint, $payload = null)
+    public function post($apiPath, $endpoint, $payload = null)
     {
-        return $this->request('POST', $endpoint, $payload);
+        $apiPath = $this->apiPath ?? $apiPath;
+        return $this->request('POST', $apiPath . $endpoint, $payload);
     }
 }
