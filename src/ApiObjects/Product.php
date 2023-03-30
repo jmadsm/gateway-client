@@ -27,7 +27,6 @@ class Product
         }
 
         $result = json_decode(Client::getInstance()->get($endpoint, $payload));
-
         return new ApiObjectResult($result, __METHOD__, $page, [$since, $locations, $sinceorder, $expandoptions]);
     }
 

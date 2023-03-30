@@ -25,7 +25,7 @@ use JmaDsm\GatewayClient\ApiObjects\Product;
 //}
 
 var_dump(
-    Product::all(1, null, [], 'asc', ['notes', 'categories']),
+    Product::all(1, null, [], 'asc', ['notes', 'categories', 'imagemetadata']),
 //    Product::all(1)->next(),
 //    Product::all(1, null, ['H', 'STPR'])->next(),
 //    Product::since('2022-04-18T13:06:09.147Z', 1, ['H'])->next()
