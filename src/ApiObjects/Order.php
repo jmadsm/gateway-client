@@ -19,7 +19,8 @@ class Order
      */
     public static function create(array $orderData)
     {
-        $result = json_decode(Client::getInstance()->post(self::$apiPath . '/order', $orderData));
+        $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
+        $result = json_decode(Client::getInstance()->post($apiPath . '/order', $orderData));
 
         return new ApiObjectResult($result);
     }
@@ -34,7 +35,8 @@ class Order
      */
     public static function createMachine(array $orderData)
     {
-        $result = json_decode(Client::getInstance()->post(self::$apiPath . '/machineorder', $orderData));
+        $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
+        $result = json_decode(Client::getInstance()->post($apiPath . '/machineorder', $orderData));
 
         return new ApiObjectResult($result);
     }

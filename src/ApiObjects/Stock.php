@@ -17,8 +17,8 @@ class Stock
      */
     public static function all($locations = [], $since = null)
     {
-        $result = json_decode(Client::getInstance()->get(self::$apiPath . '/stock', ['locations' => $locations, 'from' => $since]));
-        //var_dump($result);
+        $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
+        $result = json_decode(Client::getInstance()->get($apiPath . '/stock', ['locations' => $locations, 'from' => $since]));
 
         return new ApiObjectResult($result, __METHOD__);
     }
@@ -31,7 +31,8 @@ class Stock
      */
     public static function get($id)
     {
-        $result = json_decode(Client::getInstance()->get(self::$apiPath . '/product', ['sku' => $id]));
+        $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
+        $result = json_decode(Client::getInstance()->get($apiPath . '/product', ['sku' => $id]));
 
         return new ApiObjectResult($result);
     }

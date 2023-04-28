@@ -13,18 +13,11 @@ use JmaDsm\GatewayClient\ApiObjects\ShippingAddress;
 Client::getInstance(
     $config['base_url'],
     $config['access_token'],
-    $config['tenant_token']
+    $config['tenant_token'],
+    $config['api_path'] ?? null
 );
 
-$shippingaddresses      = ShippingAddress::get('370');
-//$shippingaddressesSince = ShippingAddress::since('2021-10-05');
-
-
-var_dump($shippingaddresses);
-
-
-/* var_dump(
-//   Contact::all()->next(),
-//   Contact::since("2021-10-05")->next(),
-   Contact::get("E005375")->next()
-); */
+var_dump(
+//   ShippingAddress::get("00359899820270")->next()
+//   ShippingAddress::get("E005375")->next()
+);

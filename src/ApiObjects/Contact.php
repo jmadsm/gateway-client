@@ -16,7 +16,8 @@ class Contact
      */
     public static function all(int $page = 1, $since = null)
     {
-        $result = json_decode(Client::getInstance()->get(self::$apiPath . '/contacts', ['page' => $page, 'since' => $since]));
+        $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
+        $result = json_decode(Client::getInstance()->get($apiPath . '/contacts', ['page' => $page, 'since' => $since]));
         return new ApiObjectResult($result, __METHOD__, $page, [$since]);
     }
 
@@ -28,7 +29,8 @@ class Contact
      */
     public static function get($id)
     {
-        $result = json_decode(Client::getInstance()->get(self::$apiPath . '/contacts/' . $id));
+        $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
+        $result = json_decode(Client::getInstance()->get($apiPath . '/contacts/' . $id));
         return new ApiObjectResult($result);
     }
 

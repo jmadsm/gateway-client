@@ -18,7 +18,8 @@ class Tierprice
      */
     public static function all(int $page = 1, $since = null)
     {
-        $result = json_decode(Client::getInstance()->get(self::$apiPath . '/tierprices', ['page' => $page, 'since' => $since]));
+        $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
+        $result = json_decode(Client::getInstance()->get($apiPath . '/tierprices', ['page' => $page, 'since' => $since]));
 
         return new ApiObjectResult($result, __METHOD__, $page, [$since]);
     }
@@ -31,7 +32,8 @@ class Tierprice
      */
     public static function get($id)
     {
-        $result = json_decode(Client::getInstance()->get(self::$apiPath . '/tierprices/' . $id));
+        $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
+        $result = json_decode(Client::getInstance()->get($apiPath . '/tierprices/' . $id));
 
         return new ApiObjectResult($result);
     }

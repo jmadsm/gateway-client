@@ -13,7 +13,8 @@ use JmaDsm\GatewayClient\ApiObjects\ProductImages;
 Client::getInstance(
     $config['base_url'],
     $config['access_token'],
-    $config['tenant_token']
+    $config['tenant_token'],
+     $config['api_path'] ?? null
 );
 
 // Example

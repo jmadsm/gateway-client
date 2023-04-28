@@ -13,7 +13,8 @@ use JmaDsm\GatewayClient\ApiObjects\ProductTemplate;
 Client::getInstance(
     $config['base_url'],
     $config['access_token'],
-    $config['tenant_token']
+    $config['tenant_token'],
+    $config['api_path'] ?? null
 );
 
 /*
@@ -26,6 +27,6 @@ while($contact = $contacts->next()) {
 */
 
 var_dump(
-    //ProductTemplate::all(),
-   ProductTemplate::get("AMA117305-6"),
+    ProductTemplate::all(),
+//   ProductTemplate::get("AMA117305-6"),
 );

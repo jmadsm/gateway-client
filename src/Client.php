@@ -11,7 +11,7 @@ class Client
      */
     private static $instance;
 
-    private $accessToken, $baseUrl, $curl, $tenantToken;
+    private $accessToken, $baseUrl, $curl, $tenantToken, $apiPath;
 
     /**
      * Gets the active class instance from $instance. If instance is not set
@@ -20,12 +20,13 @@ class Client
      * @param string $baseUrl
      * @param string $accessToken
      * @param string $tenantToken
+     * @param string $apiPath
      * @return Client
      */
-    public static function getInstance($baseUrl = null, $accessToken = null, $tenantToken = null)
+    public static function getInstance($baseUrl = null, $accessToken = null, $tenantToken = null, string $apiPath = null)
     {
         if (!self::$instance) {
-            self::$instance = new self($baseUrl, $accessToken, $tenantToken);
+            self::$instance = new self($baseUrl, $accessToken, $tenantToken, $apiPath);
         }
 
         return self::$instance;
@@ -38,11 +39,14 @@ class Client
      * @param string $accessToken
      * @param string $tenantToken
      */
-    private function __construct($baseUrl = null, $accessToken = null, $tenantToken = null)
+    private function __construct(string $baseUrl = null, string $accessToken = null, string $tenantToken = null, string $apiPath = null)
     {
         if ($baseUrl) $this->setBaseUrl($baseUrl);
         if ($accessToken) $this->setAccessToken($accessToken);
         if ($tenantToken) $this->setTenantToken($tenantToken);
+        if ($apiPath !== null) {
+            $this->setApiPath($apiPath);
+        }
 
         $this->curl = curl_init();
 
@@ -119,6 +123,21 @@ class Client
     public function getTenantToken()
     {
         return $this->tenantToken;
+    }
+
+    /**
+     * @param string $apiPath
+     * @return void
+     */
+    private function setApiPath(string $apiPath): void {
+        $this->apiPath = $apiPath;
+    }
+
+    /**
+     * @return string
+     */
+    public function getApiPath($defaultApiPath = null): string|null {
+        return $this->apiPath ?? $defaultApiPath;
     }
 
     /**

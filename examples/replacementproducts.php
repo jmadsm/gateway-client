@@ -12,18 +12,12 @@ use JmaDsm\GatewayClient\ApiObjects\ReplacementProduct;
 Client::getInstance(
     $config['base_url'],
     $config['access_token'],
-    $config['tenant_token']
+    $config['tenant_token'],
+    $config['api_path'] ?? null
 );
-//var_dump($config);
-$replacementproducts = ReplacementProduct::all(1);
-//die(var_dump($replacementproducts->getCurrentElement()->updated_at));
 
-while($replacementproduct = $replacementproducts->next()) {
-    var_dump($replacementproduct->sku);
-}
-
-//var_dump(
-//    Product::all(1)->next(),
-//    Product::since('2022-04-18T13:06:09.147Z')->next()
-//    Product::get('WE18880')->next()
-//);
+var_dump(
+    ReplacementProduct::all(1)->next(),
+//    ReplacementProduct::since('2022-04-18T13:06:09.147Z')->next()
+//    ReplacementProduct::get('GR1125170369')->next()
+);

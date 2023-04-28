@@ -13,20 +13,12 @@ use JmaDsm\GatewayClient\ApiObjects\Stock;
 Client::getInstance(
     $config['base_url'],
     $config['access_token'],
-    $config['tenant_token']
+    $config['tenant_token'],
+    $config['api_path'] ?? null
 );
 
-/*
-$contacts = Contact::all(1);
-$contacts = Contact::since("2021-10-05");
-
-while($contact = $contacts->next()) {
-    var_dump($contact->name);
-}
-*/
-
-//var_dump(
-//    Stock::all(['H', 'B2'], 1207750)->getData(),
+var_dump(
+    Stock::all(['H', 'B2'], 1207750)->getData(),
 //   Stock::since("2021-10-05")->next(),
 //   Stock::get('OR1030')->next()
-//);
+);

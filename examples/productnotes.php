@@ -13,16 +13,10 @@ use JmaDsm\GatewayClient\ApiObjects\ProductNote;
 Client::getInstance(
     $config['base_url'],
     $config['access_token'],
-    $config['tenant_token']
+    $config['tenant_token'],
+     $config['api_path'] ?? null
 );
 
-$shippingaddresses      = ProductNote::get('0 434 250 014');
-//$shippingaddressesSince = ShippingAddress::since('2021-10-05');
+$productNote      = ProductNote::get('0 434 250 014');
 
-var_dump($shippingaddresses);
-
-/* var_dump(
-//   Contact::all()->next(),
-//   Contact::since("2021-10-05")->next(),
-   Contact::get("E005375")->next()
-); */
+var_dump($productNote);

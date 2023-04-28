@@ -18,7 +18,8 @@ class ProductTemplate
      */
     public static function all(int $page = 1, array $expandoptions = null)
     {
-        $endpoint = self::$apiPath . '/producttemplates';
+        $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
+        $endpoint = $apiPath . '/producttemplates';
         $payload  = ['page' => $page];
 
         if ($expandoptions) {
@@ -38,7 +39,8 @@ class ProductTemplate
      */
     public static function get($id)
     {
-        $result = json_decode(Client::getInstance()->get(self::$apiPath . '/producttemplates/' . $id));
+        $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
+        $result = json_decode(Client::getInstance()->get($apiPath . '/producttemplates/' . $id));
 
         return new ApiObjectResult($result);
     }

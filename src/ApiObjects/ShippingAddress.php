@@ -10,14 +10,15 @@ class ShippingAddress
     private static string $apiPath = '/contact/api/v1';
 
     /**
-     * @param $id 
-     * 
+     * @param $id
+     *
      *  Takes a string parameter as identifier
      */
 
     public static function get($id)
     {
-        $result = json_decode(Client::getInstance()->get(self::$apiPath . '/shippingaddresses/' . $id));
+        $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
+        $result = json_decode(Client::getInstance()->get($apiPath . '/shippingaddresses/' . $id));
         return new ApiObjectResult($result);
     }
 }

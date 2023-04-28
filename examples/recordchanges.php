@@ -13,10 +13,10 @@ use JmaDsm\GatewayClient\ApiObjects\RecordChange;
 Client::getInstance(
     $config['base_url'],
     $config['access_token'],
-    $config['tenant_token']
+    $config['tenant_token'],
+    $config['api_path'] ?? null
 );
 $recordchanges = RecordChange::all(1);
-//$recordchanges = RecordChange::tableId(1, "01265201", '2021-04-18T13:06:09.147Z');
 //$recordchanges = RecordChange::tableName(1, 'Nonstock Item', '2021-04-18T13:06:09.147Z');
 
 while($recordchange = $recordchanges->next()) {
@@ -26,8 +26,6 @@ while($recordchange = $recordchanges->next()) {
 //var_dump(
 //    RecordChange::all(1)->next(),
 //    RecordChange::since('2022-04-18T13:06:09.147Z')->next()
-//    RecordChange::get('OR1030')->next()
-//    RecordChange::tableId(2222222, 1, '2022-04-18T13:06:09.147Z')->next()
+//    RecordChange::tableId(7002, 1, '2022-04-18T13:06:09.147Z')->next()
 //    RecordChange::tableName('Sales Price', 1, '2022-04-18T13:06:09.147Z')->next()
-//    RecordChange::tableId('OR1030')->next()
 //);
