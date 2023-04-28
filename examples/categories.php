@@ -1,6 +1,7 @@
 <?php
 
 // Require the composer autoloader
+global $config;
 require_once (__DIR__ . '/../vendor/autoload.php');
 require_once (__DIR__ . '/config.php');
 
@@ -13,7 +14,8 @@ use JmaDsm\GatewayClient\ApiObjects\Category;
 Client::getInstance(
     $config['base_url'],
     $config['access_token'],
-    $config['tenant_token']
+    $config['tenant_token'],
+    $config['api_path'] ?? null
 );
 
 /*
@@ -25,7 +27,7 @@ while($category = $categories->next()) {
 */
 
 var_dump(
-//    Category::all(1), // get all categories
-    Category::since("2022-03-18T13:06:09.147Z"), // get categories changed since the specified datetime
+    Category::all(1), // get all categories
+//    Category::since("2022-03-18T13:06:09.147Z"), // get categories changed since the specified datetime
 //    Category::get(31) // get a specific category
 );

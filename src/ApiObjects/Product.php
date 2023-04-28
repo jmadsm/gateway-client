@@ -10,7 +10,7 @@ class Product
     private static string $apiPath = '/product/api/v1';
 
     /**
-     * Returns all categories
+     * Returns all products
      *
      * @param int $page
      * @param $since
@@ -18,11 +18,12 @@ class Product
      */
     public static function all(int $page = 1, $since = null, array $locations = [], $sinceorder = null, array $expandoptions = null)
     {
-        $endpoint = self::$apiPath . '/products';
+        $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
+        $endpoint = $apiPath . '/products';
         $payload  = ['page' => $page, 'since' => $since, 'locations' => $locations, 'sinceorder' => $sinceorder];
 
         if ($expandoptions) {
-            $endpoint  = self::$apiPath . '/productslimited';
+            $endpoint  = $apiPath . '/productslimited';
             $payload['expandOptions'] = $expandoptions;
         }
 
@@ -31,20 +32,20 @@ class Product
     }
 
     /**
-     * Returns specific category
+     * Returns specific product
      *
      * @param $id
      * @return ApiObjectResult
      */
     public static function get($id, array $locations = [])
     {
-        $result = json_decode(Client::getInstance()->get(self::$apiPath . '/products/' . $id, ['locations' => $locations]));
+        $result = json_decode(Client::getInstance()->get(Client::getInstance()->getApiPath(self::$apiPath) . '/products/' . $id, ['locations' => $locations]));
 
         return new ApiObjectResult($result);
     }
 
     /**
-     * Returns categories changed since $from date. Defaults to page 1
+     * Returns products changed since $from date. Defaults to page 1
      *
      * @param $since
      * @param int $page
@@ -65,7 +66,7 @@ class Product
      */
     public static function netPrice($debitorNumber, $productNumber, $quantity, $ordertype = null)
     {
-        $result = json_decode(Client::getInstance()->get(self::$apiPath . '/netprice/' . urlencode($debitorNumber) . '/' . urlencode($productNumber) . '/' . urlencode($quantity), ['ordertype' => $ordertype]));
+        $result = json_decode(Client::getInstance()->get(Client::getInstance()->getApiPath(self::$apiPath) . '/netprice/' . urlencode($debitorNumber) . '/' . urlencode($productNumber) . '/' . urlencode($quantity), ['ordertype' => $ordertype]));
 
         return new ApiObjectResult($result);
     }

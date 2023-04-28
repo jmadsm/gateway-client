@@ -13,17 +13,9 @@ use JmaDsm\GatewayClient\ApiObjects\ProductTemplateRelation;
 Client::getInstance(
     $config['base_url'],
     $config['access_token'],
-    $config['tenant_token']
+    $config['tenant_token'],
+    $config['api_path'] ?? null
 );
-//die(var_dump($config));
-/*
-$contacts = Contact::all(1);
-$contacts = Contact::since("2021-10-05");
-
-while($contact = $contacts->next()) {
-    var_dump($contact->name);
-}
-*/
 
 var_dump(
     ProductTemplateRelation::all(),

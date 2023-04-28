@@ -17,7 +17,8 @@ class ProductTemplateRelation
      */
     public static function all(int $page = 1, array $expandoptions = null)
     {
-        $endpoint = self::$apiPath . '/producttemplaterelations';
+        $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
+        $endpoint = $apiPath . '/producttemplaterelations';
         $payload  = ['page' => $page];
 
         if ($expandoptions) {
@@ -25,7 +26,6 @@ class ProductTemplateRelation
         }
 
         $result = json_decode(Client::getInstance()->get($endpoint, $payload));
-        //die(var_dump($result));
         return new ApiObjectResult($result, __METHOD__, $page, [$expandoptions]);
     }
 

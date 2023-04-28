@@ -13,18 +13,19 @@ use JmaDsm\GatewayClient\ApiObjects\ShadowProduct;
 Client::getInstance(
     $config['base_url'],
     $config['access_token'],
-    $config['tenant_token']
+    $config['tenant_token'],
+    $config['api_path'] ?? null
 );
-//var_dump($config);
-$products = ShadowProduct::all(1);
+
+//$products = ShadowProduct::all(1);
 //die(var_dump($products->getCurrentElement()->updated_at));
 
-while ($product = $products->next()) {
-    var_dump($product->sku);
-}
+//while ($product = $products->next()) {
+//    var_dump($product->sku);
+//}
 
-//var_dump(
-//    ShadowProduct::all(1)->next(),
+var_dump(
+    ShadowProduct::all(1)->next(),
 //    ShadowProduct::since('2022-04-18T13:06:09.147Z')->next()
-//    ShadowProduct::get('WE18880')->next()
-//);
+//    ShadowProduct::get('AG10460510')->next()
+);

@@ -32,7 +32,8 @@ class RecordChange
      */
     public static function tableName(int $page, string $tableName, $since = null): ApiObjectResult
     {
-        $result = json_decode(Client::getInstance()->get(self::$apiPath . '/recordchanges/tablename/' . urlencode($tableName),
+        $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
+        $result = json_decode(Client::getInstance()->get($apiPath . '/recordchanges/tablename/' . urlencode($tableName),
             ['page' => $page, 'since' => $since]));
 
         return new ApiObjectResult($result, __METHOD__, $page, [$tableName, $since]);
@@ -46,7 +47,8 @@ class RecordChange
      */
     public static function tableId(int $page, string $tableId, $since = null): ApiObjectResult
     {
-        $result = json_decode(Client::getInstance()->get(self::$apiPath . '/recordchanges/tableid/' . $tableId,
+        $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
+        $result = json_decode(Client::getInstance()->get($apiPath . '/recordchanges/tableid/' . $tableId,
             ['page' => $page, 'since' => $since]));
 
         return new ApiObjectResult($result, __METHOD__, $page, [$tableId, $since]);

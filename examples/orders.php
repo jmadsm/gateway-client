@@ -13,12 +13,13 @@ use JmaDsm\GatewayClient\ApiObjects\Order;
 Client::getInstance(
     $config['base_url'],
     $config['access_token'],
-    $config['tenant_token']
+    $config['tenant_token'],
+    $config['api_path'] ?? null
 );
 $uniqueOrderNumber = date('Y-m-d-H:i:s');
-/*var_dump(
+var_dump(
    Order::create([
-    "order_number" => "Order-" . $uniqueOrderNumber,
+    "order_number" => "O" . $uniqueOrderNumber,
     "date" => date("Y-m-d"),
     "payment_method" => "quickpay",
     "shipping_method" => "bring",
@@ -42,12 +43,12 @@ $uniqueOrderNumber = date('Y-m-d-H:i:s');
         ]
     ]
    ]),
-);*/
+);
 
-var_dump(
+/*var_dump(
     Order::createMachine(
         [
-            "order_number" => "MachineOrder-" . $uniqueOrderNumber,
+            "order_number" => "M" . $uniqueOrderNumber,
             "date" => date("Y-m-d"),
             "payment_method" => "BANK",
             "shipping_method" => "CIF",
@@ -95,17 +96,17 @@ var_dump(
                 [
                     "id" => "2795",
                     "description" => "ZA Super, bas gödningsspridare",
-                    "quantity" => 1
+                    "quantity" => "1"
                 ],
                 [
                     "id" => "2796",
                     "description" => "Vågsystem för ZA Super",
-                    "quantity" => 1
+                    "quantity" => "1"
                 ],
                 [
                     "id" => "2797",
                     "description" => "Vågsystem för ZA Super",
-                    "quantity" => 1
+                    "quantity" => "1"
                 ]
             ],
             "customer_comments" => "",
@@ -115,4 +116,4 @@ var_dump(
             "contact_no" => "SOH-001222"
         ]
     )
-);
+);*/

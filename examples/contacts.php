@@ -13,7 +13,8 @@ use JmaDsm\GatewayClient\ApiObjects\Contact;
 Client::getInstance(
     $config['base_url'],
     $config['access_token'],
-    $config['tenant_token']
+    $config['tenant_token'],
+    $config['api_path'] ?? null
 );
 
 /*
@@ -26,7 +27,7 @@ while($contact = $contacts->next()) {
 */
 
 var_dump(
-//   Contact::all()->next(),
+   Contact::all()->next(),
 //   Contact::since("2021-10-05")->next(),
-   Contact::get("E005375")->next()
+//   Contact::get("E005375")->next()
 );
