@@ -8,7 +8,6 @@ require_once __DIR__ . '/config.php';
 use JmaDsm\GatewayClient\Client;
 use JmaDsm\GatewayClient\ApiObjects\ProductByVendor;
 
-
 // Configure the client singleton, this allows
 // all the ApiObjects to perform requests using
 // this configuration
@@ -20,5 +19,5 @@ use JmaDsm\GatewayClient\ApiObjects\ProductByVendor;
  );
 
 var_dump(
-    ProductByVendor::get(vendorNo: '36394900', vendorItemNo: '1030OR'),
+    ProductByVendor::get(vendorNo: '36394900', vendorItemNo: ['1030OR', '1010OR']),
 );
