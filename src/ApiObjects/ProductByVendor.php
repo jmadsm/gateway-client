@@ -18,15 +18,14 @@ class ProductByVendor
      * @param $locations
      * @return JmaDsm\GatewayClient\ApiObjectResult;
      */
-    public static function get(string $vendorNo, string $vendorItemNo, array $locations = [])
+    public static function get(string $vendorNo, array $vendorItemNo = [], array $locations = [])
     {
         $apiPath  = Client::getInstance()->getApiPath(self::$apiPath);
         $endpoint = $apiPath . '/productsbyvendor';
-        $payload  = [ 'locations' => $locations, 'vendorNo' => $vendorNo, 'vendorItemNo' => $vendorItemNo];
-    
+        $payload  = ['locations' => $locations, 'vendorNo' => $vendorNo, 'vendorItemNo' => $vendorItemNo];
+
         $result = json_decode(Client::getInstance()->get($endpoint, $payload));
 
-        return new ApiObjectResult($result, __METHOD__, 1, [$locations]);
+        return new ApiObjectResult($result, __METHOD__, 1, [$locations, $vendorItemNo]);
     }
-
 }
