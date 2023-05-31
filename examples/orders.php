@@ -1,8 +1,8 @@
 <?php
 
 // Require the composer autoloader
-require_once (__DIR__ . '/../vendor/autoload.php');
-require_once (__DIR__ . '/config.php');
+require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/config.php';
 
 use JmaDsm\GatewayClient\Client;
 use JmaDsm\GatewayClient\ApiObjects\Order;
@@ -16,7 +16,12 @@ Client::getInstance(
     $config['tenant_token'],
     $config['api_path'] ?? null
 );
-$uniqueOrderNumber = date('Y-m-d-H:i:s');
+
+var_dump(
+    Order::getSalesOrderExternalNumber('76721300', 'DSMDEMO-10011')
+);
+
+/* $uniqueOrderNumber = date('Y-m-d-H:i:s');
 var_dump(
    Order::create([
     "order_number" => "O" . $uniqueOrderNumber,
@@ -43,7 +48,7 @@ var_dump(
         ]
     ]
    ]),
-);
+); */
 
 /*var_dump(
     Order::createMachine(
