@@ -20,7 +20,7 @@ class Order
     public static function create(array $orderData)
     {
         $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
-        $result = json_decode(Client::getInstance()->post($apiPath . '/order', $orderData));
+        $result  = json_decode(Client::getInstance()->post($apiPath . '/order', $orderData));
 
         return new ApiObjectResult($result);
     }
@@ -36,8 +36,24 @@ class Order
     public static function createMachine(array $orderData)
     {
         $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
-        $result = json_decode(Client::getInstance()->post($apiPath . '/machineorder', $orderData));
+        $result  = json_decode(Client::getInstance()->post($apiPath . '/machineorder', $orderData));
 
         return new ApiObjectResult($result);
+    }
+
+    public static function getSalesOrders($customerId, $orderId)
+    {
+        $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
+        $result  = json_decode(Client::getInstance()->get($apiPath . '/sales-orders', ['customer_id' => $customerId, 'order_id' => $orderId]));
+
+        return new ApiObjectResult($result, __METHOD__, 0, [$customerId, $orderId]);
+    }
+
+    public static function getSalesOrderExternalNumber($customerId, $orderId)
+    {
+        $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
+        $result  = json_decode(Client::getInstance()->get($apiPath . '/sales-orders-by-external-number', ['customer_id' => $customerId, 'order_id' => $orderId]));
+
+        return new ApiObjectResult($result, __METHOD__, 0, [$customerId, $orderId]);
     }
 }
