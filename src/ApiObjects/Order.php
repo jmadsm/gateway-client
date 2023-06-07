@@ -52,7 +52,7 @@ class Order
     public static function getSalesOrderExternalId($customerId, $orderId)
     {
         $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
-        $result  = json_decode(Client::getInstance()->get($apiPath . '/sales-orders-by-external-id', ['customer_id' => $customerId, 'order_id' => $orderId]));
+        $result  = json_decode(Client::getInstance()->get($apiPath . '/sales-orders-by-external-order-id', ['customer_id' => $customerId, 'order_id' => $orderId]));
 
         return new ApiObjectResult($result, __METHOD__, 0, [$customerId, $orderId]);
     }
