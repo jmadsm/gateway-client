@@ -18,7 +18,7 @@ Client::getInstance(
 );
 
 var_dump(
-    Stock::all(['H', 'B2'], 1207750)->getData(),
+    Stock::all(['H', 'B2'], 1207750, true)->getData(),
 //   Stock::since("2021-10-05")->next(),
 //   Stock::get('OR1030')->next()
 );
