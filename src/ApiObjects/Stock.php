@@ -15,10 +15,10 @@ class Stock
      * @param $since
      * @return JmaDsm\GatewayClient\ApiObjectResult;
      */
-    public static function all($locations = [], $since = null)
+    public static function all($locations = [], $since = null, bool $showReserved = false)
     {
         $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
-        $result = json_decode(Client::getInstance()->get($apiPath . '/stock', ['locations' => $locations, 'from' => $since]));
+        $result = json_decode(Client::getInstance()->get($apiPath . '/stock', ['locations' => $locations, 'from' => $since, 'showReserved' => $showReserved]));
 
         return new ApiObjectResult($result, __METHOD__);
     }
