@@ -56,4 +56,12 @@ class Order
 
         return new ApiObjectResult($result, __METHOD__, 0, [$customerId, $orderId]);
     }
+
+    public static function getCustomerInvoice($customerId, $documentNumber)
+    {
+        $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
+        $result  = json_decode(Client::getInstance()->get($apiPath . '/invoice/customer', ['customer_number' => $customerId, 'external_doc_number' => $documentNumber]));
+
+        return new ApiObjectResult($result, __METHOD__, 0, [$customerId, $documentNumber]);
+    }
 }

@@ -18,7 +18,7 @@ Client::getInstance(
 );
 
 var_dump(
-    Order::getSalesOrderExternalNumber('76721300', 'DSMDEMO-10011')
+    Order::getCustomerInvoice('76721300', 'TESTAGCO')
 );
 
 /* $uniqueOrderNumber = date('Y-m-d-H:i:s');
