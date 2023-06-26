@@ -64,4 +64,12 @@ class Order
 
         return new ApiObjectResult($result, __METHOD__, 0, [$customerId, $documentNumber]);
     }
+
+    public static function getCustomerSalesIntegrationInbox($customerId, $documentNumber)
+    {
+        $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
+        $result  = json_decode(Client::getInstance()->get($apiPath . '/sales-integration-inbox', ['customer_number' => $customerId, 'external_doc_number' => $documentNumber]));
+
+        return new ApiObjectResult($result, __METHOD__, 0, [$customerId, $documentNumber]);
+    }
 }
