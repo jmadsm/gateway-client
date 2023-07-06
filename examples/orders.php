@@ -17,8 +17,10 @@ Client::getInstance(
     $config['api_path'] ?? null
 );
 
+$result = Order::getCustomerInvoice('767213001', 'TESTAGCO');
+
 var_dump(
-    Order::getCustomerInvoice('76721300', 'TESTAGCO')
+    $result
 );
 
 /* $uniqueOrderNumber = date('Y-m-d-H:i:s');
