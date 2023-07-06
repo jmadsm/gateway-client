@@ -17,7 +17,7 @@ class ProductImages
     public static function get($id)
     {
         $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
-        $result = json_decode(Client::getInstance()->get($apiPath . '/productimages/' . $id));
+        $result = Client::getInstance()->get($apiPath . '/productimages/' . $id);
 
         return new ApiObjectResult($result);
     }

@@ -160,7 +160,7 @@ class Client
      * @param string       $method    "GET"|"DELETE"|"POST"
      * @param string       $endpoint  Url to append the baseUrl ("$baseUrl/$url")
      * @param string|array $payload   Array: payload is used as query params. String: Array is used as body
-     * @return void
+     * @return mixed
      */
     public function request($method, string $endpoint = '/', $payload = null)
     {
@@ -187,7 +187,7 @@ class Client
 
         $response = curl_exec($this->curl);
         $httpCode = curl_getinfo($this->curl, CURLINFO_HTTP_CODE);
-
+        
         // Error handling
         if (substr(strval($httpCode), 0, 1) !== "2" && $httpCode !== 404 && $httpCode !== 400) {
             $messageHint = match ($httpCode) {
@@ -201,7 +201,11 @@ class Client
             throw new \Exception($messageHint . "Unhandled HTTP code({$httpCode}) from response: " . $message, 1);
         }
 
-        return $response;
+        if ($httpCode === 404) {
+            return $response;
+        }
+
+        return json_decode($response);
     }
 
     /**

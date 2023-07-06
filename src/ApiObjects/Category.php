@@ -19,7 +19,7 @@ class Category
     public static function all(int $page = 1, $since = null)
     {
         $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
-        $result = json_decode(Client::getInstance()->get($apiPath . '/categories', ['page' => $page, 'since' => $since]));
+        $result = Client::getInstance()->get($apiPath . '/categories', ['page' => $page, 'since' => $since]);
         return new ApiObjectResult($result, __METHOD__, $page, [$since]);
     }
 
@@ -32,7 +32,7 @@ class Category
     public static function get($id)
     {
         $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
-        $result = json_decode(Client::getInstance()->get($apiPath . '/categories/' . $id));
+        $result = Client::getInstance()->get($apiPath . '/categories/' . $id);
 
         return new ApiObjectResult($result);
     }

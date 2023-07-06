@@ -24,6 +24,7 @@ class ApiObjectResult
             http_response_code(404);
             die('No result. Please check your URL and API Path.');
         }
+
         $this->updateThisObject($result, $method, $page, $parameters);
     }
 

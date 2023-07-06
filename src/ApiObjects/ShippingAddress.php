@@ -18,7 +18,7 @@ class ShippingAddress
     public static function get($id)
     {
         $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
-        $result = json_decode(Client::getInstance()->get($apiPath . '/shippingaddresses/' . $id));
+        $result = Client::getInstance()->get($apiPath . '/shippingaddresses/' . $id);
         return new ApiObjectResult($result);
     }
 }
