@@ -25,7 +25,7 @@ class ProductTemplateRelation
             $payload['expandOptions'] = $expandoptions;
         }
 
-        $result = json_decode(Client::getInstance()->get($endpoint, $payload));
+        $result = Client::getInstance()->get($endpoint, $payload);
         return new ApiObjectResult($result, __METHOD__, $page, [$expandoptions]);
     }
 
@@ -37,7 +37,7 @@ class ProductTemplateRelation
      */
     public static function get($id)
     {
-        $result = json_decode(Client::getInstance()->get(self::$apiPath . '/producttemplates/' . $id));
+        $result = Client::getInstance()->get(self::$apiPath . '/producttemplates/' . $id);
 
         return new ApiObjectResult($result);
     }

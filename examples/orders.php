@@ -17,8 +17,77 @@ Client::getInstance(
     $config['api_path'] ?? null
 );
 
+/* $result = Order::getCustomerInvoice('76721300', 'TESTAGCO');
+
 var_dump(
-    Order::getCustomerInvoice('76721300', 'TESTAGCO')
+    $result
+); */
+
+var_dump(
+    Order::create([
+        "order_number" => "BASE-10091-T-aka1",
+        "date" => "2023-07-02",
+        "payment_method" => "BANK",
+        "shipping_method" => "CIF",
+            "customer_reference_number" => "akatest",
+        "email" => "jmatest@outlook.dk",
+        "shipping_contact" => [
+            "firstname" => "Andreas",
+            "lastname" => " Kaae",
+            "email" => "jmatest@outlook.dk",
+            "phone" => "55224411",
+            "address" => "Engelsholm 26",
+            "address_2" => "",
+            "city" => "Randers",
+            "postcode" => "8940",
+            "country" => "DK",
+            "company" => "JMA"
+        ],
+        "billing_contact" => [
+            "firstname" => "Andreas",
+            "lastname" => " Kaae",
+            "email" => "jmatest@outlook.dk",
+            "phone" => "55224411",
+            "address" => "Engelsholm 26",
+            "address_2" => "",
+            "city" => "Randers",
+            "postcode" => "8940",
+            "country" => "DK",
+            "company" => "JMA"
+        ],
+        "lines" => [
+                [
+                        "name" => "Tændrør",
+                        "sku" => "+22",
+                        "price" => "1681.5",
+                        "quantity" => "1"
+                ],
+                [
+                        "name" => "Tændrør",
+                        "sku" => "+23",
+                        "price" => "200",
+                        "quantity" => "3"
+                ],
+                [
+                        "name" => "Tændrør",
+                        "sku" => "+22",
+                        "price" => "1681.5",
+                        "quantity" => "1"
+                ],
+                [
+                    "name" => "Motor",
+                    "sku" => "0 130 007 308",
+                    "price" => "2000",
+                    "quantity" => "2"
+                ]
+        ],
+            "line_configurations" => [
+                ],
+        "customer_comments" => "Back to tech. ",
+        "order_type" => "SMSK",
+        "require_full_delivery" => "true",
+        "customer_id" => "76721300"
+])
 );
 
 /* $uniqueOrderNumber = date('Y-m-d-H:i:s');
@@ -48,9 +117,9 @@ var_dump(
         ]
     ]
    ]),
-); */
+);  */
 
-/*var_dump(
+/* var_dump(
     Order::createMachine(
         [
             "order_number" => "M" . $uniqueOrderNumber,
@@ -121,4 +190,4 @@ var_dump(
             "contact_no" => "SOH-001222"
         ]
     )
-);*/
+); */

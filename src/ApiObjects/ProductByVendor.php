@@ -24,7 +24,7 @@ class ProductByVendor
         $endpoint = $apiPath . '/productsbyvendor';
         $payload  = ['locations' => $locations, 'vendorNo' => $vendorNo, 'vendorItemNo' => $vendorItemNo];
 
-        $result = json_decode(Client::getInstance()->get($endpoint, $payload));
+        $result = Client::getInstance()->get($endpoint, $payload);
 
         return new ApiObjectResult($result, __METHOD__, 1, [$locations, $vendorItemNo]);
     }

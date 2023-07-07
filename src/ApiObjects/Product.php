@@ -27,7 +27,7 @@ class Product
             $payload['expandOptions'] = $expandoptions;
         }
 
-        $result = json_decode(Client::getInstance()->get($endpoint, $payload));
+        $result = Client::getInstance()->get($endpoint, $payload);
         return new ApiObjectResult($result, __METHOD__, $page, [$since, $locations, $sinceorder, $expandoptions]);
     }
 
@@ -39,7 +39,7 @@ class Product
      */
     public static function get($id, array $locations = [])
     {
-        $result = json_decode(Client::getInstance()->get(Client::getInstance()->getApiPath(self::$apiPath) . '/products/' . $id, ['locations' => $locations]));
+        $result = Client::getInstance()->get(Client::getInstance()->getApiPath(self::$apiPath) . '/products/' . $id, ['locations' => $locations]);
 
         return new ApiObjectResult($result);
     }
@@ -66,7 +66,7 @@ class Product
      */
     public static function netPrice($debitorNumber, $productNumber, $quantity, $ordertype = null)
     {
-        $result = json_decode(Client::getInstance()->get(Client::getInstance()->getApiPath(self::$apiPath) . '/netprice/' . urlencode($debitorNumber) . '/' . urlencode($productNumber) . '/' . urlencode($quantity), ['ordertype' => $ordertype]));
+        $result = Client::getInstance()->get(Client::getInstance()->getApiPath(self::$apiPath) . '/netprice/' . urlencode($debitorNumber) . '/' . urlencode($productNumber) . '/' . urlencode($quantity), ['ordertype' => $ordertype]);
 
         return new ApiObjectResult($result);
     }

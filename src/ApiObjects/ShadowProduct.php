@@ -19,7 +19,7 @@ class ShadowProduct
     public static function all(int $page = 1, $since = null)
     {
         $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
-        $result = json_decode(Client::getInstance()->get($apiPath . '/shadowproducts', ['page' => $page, 'since' => $since]));
+        $result = Client::getInstance()->get($apiPath . '/shadowproducts', ['page' => $page, 'since' => $since]);
 
         return new ApiObjectResult($result, __METHOD__, $page, [$since]);
     }
@@ -33,7 +33,7 @@ class ShadowProduct
     public static function get($id)
     {
         $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
-        $result = json_decode(Client::getInstance()->get($apiPath . '/shadowproducts/' . $id));
+        $result = Client::getInstance()->get($apiPath . '/shadowproducts/' . $id);
 
         return new ApiObjectResult($result);
     }

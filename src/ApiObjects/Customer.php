@@ -21,7 +21,7 @@ class Customer
         $endpoint = $apiPath . '/creditlimit';
         $payload  = ['customerNumber' => $dsmCustomerNumber];
 
-        $result = json_decode(Client::getInstance()->get($endpoint, $payload));
+        $result = Client::getInstance()->get($endpoint, $payload);
 
         return new ApiObjectResult($result, __METHOD__, 1, [$dsmCustomerNumber]);
     }
