@@ -20,7 +20,7 @@ class Order
     public static function create(array $orderData)
     {
         $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
-        $result  = json_decode(Client::getInstance()->post($apiPath . '/order', $orderData));
+        $result  = Client::getInstance()->post($apiPath . '/order', $orderData);
 
         return new ApiObjectResult($result);
     }
