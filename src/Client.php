@@ -204,12 +204,10 @@ class Client
             throw new \Exception($messageHint . "Unhandled HTTP code({$httpCode}) from response: " . $message, 1);
         }
 
-         if ($httpCode === 404) {
+        if ($httpCode === 404) {
             http_response_code(404);
-
-            throw new \Exception($response, 404);
+            die($response);
         } 
-
 
         return json_decode($response);
     }
