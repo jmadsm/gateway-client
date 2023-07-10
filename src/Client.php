@@ -205,8 +205,7 @@ class Client
         }
 
         if ($httpCode === 404) {
-            http_response_code(404);
-            die($response);
+            return $response;
         } 
 
         return json_decode($response);

@@ -125,6 +125,13 @@ class ApiObjectResult
      */
     public function getData()
     {
+        if (http_response_code(404)) {
+            return [
+                'message' => $this->data,
+                'statusCode' => http_response_code(404)
+            ];
+        }
+
         return $this->data;
     }
 
