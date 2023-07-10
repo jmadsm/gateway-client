@@ -11,11 +11,7 @@ class Client
      */
     private static $instance;
 
-    private $accessToken;
-    private $baseUrl;
-    private $curl;
-    private $tenantToken;
-    private $apiPath;
+    private $accessToken, $baseUrl, $curl, $tenantToken, $apiPath;
 
     /**
      * Gets the active class instance from $instance. If instance is not set
@@ -45,18 +41,11 @@ class Client
      */
     private function __construct(string $baseUrl = null, string $accessToken = null, string $tenantToken = null, string $apiPath = null)
     {
-        if ($baseUrl) {
-            $this->setBaseUrl($baseUrl);
-        }
-        if ($accessToken) {
-            $this->setAccessToken($accessToken);
-        }
-        if ($tenantToken) {
-            $this->setTenantToken($tenantToken);
-        }
-        if ($apiPath !== null) {
-            $this->setApiPath($apiPath);
-        }
+        if ($baseUrl) $this->setBaseUrl($baseUrl);
+        if ($accessToken) $this->setAccessToken($accessToken);
+        if ($tenantToken) $this->setTenantToken($tenantToken);
+        if ($apiPath !== null) $this->setApiPath($apiPath);
+        
 
         $this->curl = curl_init();
 
