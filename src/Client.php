@@ -205,7 +205,11 @@ class Client
         }
 
         if ($httpCode === 404) {
-            return $response;
+            http_response_code(404);
+            return [
+                'message' => $response,
+                'statusCode' => http_response_code(404)
+            ];
         } 
 
         return json_decode($response);
