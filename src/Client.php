@@ -44,9 +44,8 @@ class Client
         if ($baseUrl) $this->setBaseUrl($baseUrl);
         if ($accessToken) $this->setAccessToken($accessToken);
         if ($tenantToken) $this->setTenantToken($tenantToken);
-        if ($apiPath !== null) {
-            $this->setApiPath($apiPath);
-        }
+        if ($apiPath !== null) $this->setApiPath($apiPath);
+        
 
         $this->curl = curl_init();
 
@@ -129,14 +128,16 @@ class Client
      * @param string $apiPath
      * @return void
      */
-    private function setApiPath(string $apiPath): void {
+    private function setApiPath(string $apiPath): void
+    {
         $this->apiPath = $apiPath;
     }
 
     /**
      * @return string
      */
-    public function getApiPath($defaultApiPath = null): string|null {
+    public function getApiPath($defaultApiPath = null): string|null
+    {
         return $this->apiPath ?? $defaultApiPath;
     }
 
@@ -146,12 +147,12 @@ class Client
      *
      * @return void
      */
-    private function setApiClientHeaders(array $additionalHeaders = array())
+    private function setApiClientHeaders(array $additionalHeaders = [])
     {
-        curl_setopt($this->curl, CURLOPT_HTTPHEADER, array_merge(array(
+        curl_setopt($this->curl, CURLOPT_HTTPHEADER, array_merge([
             'Authorization: Bearer ' . $this->accessToken,
             'x-tenant-token: ' . $this->tenantToken
-        ), $additionalHeaders));
+        ], $additionalHeaders));
     }
 
     /**
@@ -173,11 +174,13 @@ class Client
             case 'DELETE':
                 $url = $payload ? $url . '?' . http_build_query($payload) : $url;
                 $this->setApiClientHeaders();
+
                 break;
             case 'POST':
                 curl_setopt($this->curl, CURLOPT_POST, true);
                 curl_setopt($this->curl, CURLOPT_POSTFIELDS, json_encode($payload));
                 $this->setApiClientHeaders(['Content-Type: application/json']);
+
                 break;
             default:
                 throw new \Exception('Undefined HTTP method', 1);
@@ -187,12 +190,12 @@ class Client
 
         $response = curl_exec($this->curl);
         $httpCode = curl_getinfo($this->curl, CURLINFO_HTTP_CODE);
-        
+
         // Error handling
-        if (substr(strval($httpCode), 0, 1) !== "2" && $httpCode !== 404 && $httpCode !== 400) {
+        if (substr(strval($httpCode), 0, 1) !== '2' && $httpCode !== 404 && $httpCode !== 400) {
             $messageHint = match ($httpCode) {
-                0 => "Please check your hostname and port. ",
-                500 => 'Please check your tenant token. ',
+                0       => 'Please check your hostname and port. ',
+                500     => 'Please check your tenant token. ',
                 default => '',
             };
 
@@ -201,9 +204,12 @@ class Client
             throw new \Exception($messageHint . "Unhandled HTTP code({$httpCode}) from response: " . $message, 1);
         }
 
-        if ($httpCode === 404) {
-            return $response;
-        }
+         if ($httpCode === 404) {
+            http_response_code(404);
+
+            throw new \Exception($response, 404);
+        } 
+
 
         return json_decode($response);
     }
