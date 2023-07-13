@@ -18,16 +18,17 @@ class Product
      */
     public static function all(int $page = 1, $since = null, array $locations = [], $sinceorder = null, array $expandoptions = null)
     {
-        $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
+        $apiPath  = Client::getInstance()->getApiPath(self::$apiPath);
         $endpoint = $apiPath . '/products';
         $payload  = ['page' => $page, 'since' => $since, 'locations' => $locations, 'sinceorder' => $sinceorder];
 
         if ($expandoptions) {
-            $endpoint  = $apiPath . '/productslimited';
+            $endpoint                 = $apiPath . '/productslimited';
             $payload['expandOptions'] = $expandoptions;
         }
 
         $result = Client::getInstance()->get($endpoint, $payload);
+
         return new ApiObjectResult($result, __METHOD__, $page, [$since, $locations, $sinceorder, $expandoptions]);
     }
 
@@ -66,8 +67,9 @@ class Product
      */
     public static function netPrice($debitorNumber, $productNumber, $quantity, $ordertype = null)
     {
-        $result = Client::getInstance()->get(Client::getInstance()->getApiPath(self::$apiPath) . '/netprice/' . urlencode($debitorNumber) . '/' . urlencode($productNumber) . '/' . urlencode($quantity), ['ordertype' => $ordertype]);
+        $payload = ['customerNo' => $debitorNumber, 'quantity' => (int) $quantity, 'itemNumber' => $productNumber, 'ordertype' => $ordertype];
+        $result = Client::getInstance()->get(Client::getInstance()->getApiPath(self::$apiPath) . '/netprice', (array) $payload);
 
-        return new ApiObjectResult($result);
+        return new ApiObjectResult($result, __METHOD__, 1, [$debitorNumber, $quantity, $productNumber]);
     }
 }
