@@ -174,7 +174,6 @@ class Client
             case 'DELETE':
                 $url = $payload ? $url . '?' . http_build_query($payload) : $url;
                 $this->setApiClientHeaders();
-
                 break;
             case 'POST':
                 curl_setopt($this->curl, CURLOPT_POST, true);
@@ -187,6 +186,11 @@ class Client
         }
 
         curl_setopt($this->curl, CURLOPT_URL, $url);
+        
+        if (strpos($url, "%2f") !== false || strpos($url, "%2F") !== false) {
+                    
+            $url = str_ireplace(["%2f", "%2F"], "slash", $url);
+        }
 
         $response = curl_exec($this->curl);
         $httpCode = curl_getinfo($this->curl, CURLINFO_HTTP_CODE);
