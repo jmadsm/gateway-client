@@ -68,7 +68,7 @@ class Product
     public static function netPrice($debitorNumber, $productNumber, $quantity, $ordertype = null)
     {
         $payload = ['customerNo' => $debitorNumber, 'quantity' => (int) $quantity, 'itemNumber' => $productNumber, 'ordertype' => $ordertype];
-        $result = Client::getInstance()->get(Client::getInstance()->getApiPath(self::$apiPath) . '/netprice', (array) $payload);
+        $result = Client::getInstance()->get(Client::getInstance()->getApiPath(self::$apiPath) . '/netprice/calculate', (array) $payload);
 
         return new ApiObjectResult($result, __METHOD__, 1, [$debitorNumber, $quantity, $productNumber]);
     }

@@ -171,6 +171,12 @@ class Client
 
         switch (strtoupper($method)) {
             case 'GET':
+                if($payload!=null) {
+                    curl_setopt($this->curl, CURLOPT_CUSTOMREQUEST, 'GET');
+                    curl_setopt($this->curl, CURLOPT_POSTFIELDS, json_encode($payload));
+                    $this->setApiClientHeaders(['Content-Type: application/json']);
+                }
+                break;
             case 'DELETE':
                 $url = $payload ? $url . '?' . http_build_query($payload) : $url;
                 $this->setApiClientHeaders();
@@ -186,11 +192,6 @@ class Client
         }
 
         curl_setopt($this->curl, CURLOPT_URL, $url);
-        
-        if (strpos($url, "%2f") !== false || strpos($url, "%2F") !== false) {
-                    
-            $url = str_ireplace(["%2f", "%2F"], "slash", $url);
-        }
 
         $response = curl_exec($this->curl);
         $httpCode = curl_getinfo($this->curl, CURLINFO_HTTP_CODE);
