@@ -60,7 +60,7 @@ class Order
     public static function getCustomerInvoice($customerId, $documentNumber)
     {
         $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
-        $result  = Client::getInstance()->get($apiPath . '/invoice/customer', ['customer_number' => $customerId, 'external_doc_number' => $documentNumber]);
+        $result  = Client::getInstance()->get($apiPath . '/invoice/customer', ['customer_number' => $customerId, 'order_id' => $documentNumber]);
 
         return new ApiObjectResult($result, __METHOD__, 0, [$customerId, $documentNumber]);
     }
@@ -68,7 +68,7 @@ class Order
     public static function getCustomerSalesIntegrationInbox($customerId, $documentNumber)
     {
         $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
-        $result  = Client::getInstance()->get($apiPath . '/sales-integration-inbox', ['customer_number' => $customerId, 'external_doc_number' => $documentNumber]);
+        $result  = Client::getInstance()->get($apiPath . '/sales-integration-inbox', ['customer_number' => $customerId, 'order_id' => $documentNumber]);
 
         return new ApiObjectResult($result, __METHOD__, 0, [$customerId, $documentNumber]);
     }
