@@ -45,7 +45,7 @@ class Client
         if ($accessToken) $this->setAccessToken($accessToken);
         if ($tenantToken) $this->setTenantToken($tenantToken);
         if ($apiPath !== null) $this->setApiPath($apiPath);
-        
+
 
         $this->curl = curl_init();
 
@@ -174,8 +174,8 @@ class Client
                 if($payload!=null) {
                     curl_setopt($this->curl, CURLOPT_CUSTOMREQUEST, 'GET');
                     curl_setopt($this->curl, CURLOPT_POSTFIELDS, json_encode($payload));
-                    $this->setApiClientHeaders(['Content-Type: application/json']);
                 }
+                $this->setApiClientHeaders(['Content-Type: application/json']);
                 break;
             case 'DELETE':
                 $url = $payload ? $url . '?' . http_build_query($payload) : $url;
@@ -215,7 +215,7 @@ class Client
                 'message' => $response,
                 'statusCode' => http_response_code(404)
             ];
-        } 
+        }
 
         return json_decode($response);
     }
