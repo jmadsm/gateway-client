@@ -10,6 +10,23 @@ class Customer
     private static string $apiPath = '/contact/api/v1';
 
     /**
+     * Returns a specific customer
+     * This object is sometimes referred to as a Account or Debitor.
+     *
+     * @param $id
+     * @return ApiObjectResult
+     */
+    public static function get($id)
+    {
+        $apiPath  = Client::getInstance()->getApiPath(self::$apiPath);
+
+        $endpoint = $apiPath . '/customers/' . $id;
+        $result = Client::getInstance()->get($endpoint);
+
+        return new ApiObjectResult($result, __METHOD__, 1, []);
+    }
+
+    /**
      * getCreditLimit
      *
      * @param  mixed $dsmCustomerNumber
@@ -19,7 +36,7 @@ class Customer
     {
         $apiPath  = Client::getInstance()->getApiPath(self::$apiPath);
         $endpoint = $apiPath . '/creditlimit';
-        $payload  = ['customerNumber' => $dsmCustomerNumber];
+        $payload  = ['customer_number' => $dsmCustomerNumber];
 
         $result = Client::getInstance()->get($endpoint, $payload);
 

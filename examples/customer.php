@@ -18,6 +18,7 @@ use JmaDsm\GatewayClient\ApiObjects\Customer;
      $config['api_path'] ?? null
  );
 
-var_dump(
-    Customer::getCreditLimit(20612095),
+ var_dump(
+//    Customer::getCreditLimit("76721300"),
+    Customer::get("76721300"),
 );

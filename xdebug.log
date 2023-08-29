@@ -1,0 +1,54 @@
+[7] Log opened at 2023-08-28 10:57:30.771943
+[7] [Step Debug] INFO: Connecting to configured address/port: host.docker.internal:9003.
+[7] [Step Debug] WARN: Creating socket for 'host.docker.internal:9003', getaddrinfo: Success.
+[7] [Step Debug] ERR: Could not connect to debugging client. Tried: host.docker.internal:9003 (through xdebug.client_host/xdebug.client_port).
+[7] Log closed at 2023-08-28 10:57:30.786399
+
+[8] Log opened at 2023-08-28 10:58:04.463334
+[8] [Step Debug] INFO: Connecting to configured address/port: host.docker.internal:9003.
+[8] [Step Debug] WARN: Creating socket for 'host.docker.internal:9003', getaddrinfo: Success.
+[8] [Step Debug] ERR: Could not connect to debugging client. Tried: host.docker.internal:9003 (through xdebug.client_host/xdebug.client_port).
+[8] Log closed at 2023-08-28 10:58:04.475199
+
+[9] Log opened at 2023-08-28 10:58:11.302300
+[9] [Step Debug] INFO: Connecting to configured address/port: host.docker.internal:9003.
+[9] [Step Debug] WARN: Creating socket for 'host.docker.internal:9003', getaddrinfo: Success.
+[9] [Step Debug] ERR: Could not connect to debugging client. Tried: host.docker.internal:9003 (through xdebug.client_host/xdebug.client_port).
+[9] Log closed at 2023-08-28 10:58:11.318030
+
+[10] Log opened at 2023-08-28 10:58:46.064424
+[10] [Step Debug] INFO: Connecting to configured address/port: host.docker.internal:9003.
+[10] [Step Debug] WARN: Creating socket for 'host.docker.internal:9003', getaddrinfo: Success.
+[10] [Step Debug] ERR: Could not connect to debugging client. Tried: host.docker.internal:9003 (through xdebug.client_host/xdebug.client_port).
+[10] Log closed at 2023-08-28 10:58:46.079083
+
+[6] Log opened at 2023-08-28 11:10:56.208789
+[6] [Step Debug] INFO: Connecting to configured address/port: host.docker.internal:9003.
+[6] [Step Debug] WARN: Creating socket for 'host.docker.internal:9003', getaddrinfo: Success.
+[6] [Step Debug] ERR: Could not connect to debugging client. Tried: host.docker.internal:9003 (through xdebug.client_host/xdebug.client_port).
+[6] Log closed at 2023-08-28 11:10:56.223072
+
+[7] Log opened at 2023-08-28 11:11:40.292098
+[7] [Step Debug] INFO: Connecting to configured address/port: host.docker.internal:9003.
+[7] [Step Debug] WARN: Creating socket for 'host.docker.internal:9003', getaddrinfo: Success.
+[7] [Step Debug] ERR: Could not connect to debugging client. Tried: host.docker.internal:9003 (through xdebug.client_host/xdebug.client_port).
+[7] Log closed at 2023-08-28 11:11:40.328010
+
+[8] Log opened at 2023-08-28 11:12:15.551803
+[8] [Step Debug] INFO: Connecting to configured address/port: host.docker.internal:9003.
+[8] [Step Debug] WARN: Creating socket for 'host.docker.internal:9003', getaddrinfo: Success.
+[8] [Step Debug] ERR: Could not connect to debugging client. Tried: host.docker.internal:9003 (through xdebug.client_host/xdebug.client_port).
+[8] Log closed at 2023-08-28 11:12:15.573691
+
+[9] Log opened at 2023-08-28 11:12:17.898224
+[9] [Step Debug] INFO: Connecting to configured address/port: host.docker.internal:9003.
+[9] [Step Debug] WARN: Creating socket for 'host.docker.internal:9003', getaddrinfo: Success.
+[9] [Step Debug] ERR: Could not connect to debugging client. Tried: host.docker.internal:9003 (through xdebug.client_host/xdebug.client_port).
+[9] Log closed at 2023-08-28 11:12:17.915750
+
+[10] Log opened at 2023-08-28 11:12:36.803766
+[10] [Step Debug] INFO: Connecting to configured address/port: host.docker.internal:9003.
+[10] [Step Debug] WARN: Creating socket for 'host.docker.internal:9003', getaddrinfo: Success.
+[10] [Step Debug] ERR: Could not connect to debugging client. Tried: host.docker.internal:9003 (through xdebug.client_host/xdebug.client_port).
+[10] Log closed at 2023-08-28 11:12:36.816825
+
