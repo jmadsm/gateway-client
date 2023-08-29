@@ -18,19 +18,10 @@ class Customer
      */
     public static function get($id)
     {
-/*
- *
- *      $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
-        $result = Client::getInstance()->get($apiPath . '/categories/' . $id);
-
-        return new ApiObjectResult($result);
- */
         $apiPath  = Client::getInstance()->getApiPath(self::$apiPath);
+
         $endpoint = $apiPath . '/customers/' . $id;
-//        $endpoint = $apiPath . '/customer/' . $id;
-//die(var_dump($endpoint));
-//        $result = Client::getInstance()->get($endpoint, []);
-        $result = Client::getInstance()->get($apiPath . '/customers/' . $id);
+        $result = Client::getInstance()->get($endpoint);
 
         return new ApiObjectResult($result, __METHOD__, 1, []);
     }
@@ -45,8 +36,7 @@ class Customer
     {
         $apiPath  = Client::getInstance()->getApiPath(self::$apiPath);
         $endpoint = $apiPath . '/creditlimit';
-        $payload  = ['customerNumber' => $dsmCustomerNumber];
-//        $payload  = ['customer_number' => $dsmCustomerNumber];
+        $payload  = ['customer_number' => $dsmCustomerNumber];
 
         $result = Client::getInstance()->get($endpoint, $payload);
 

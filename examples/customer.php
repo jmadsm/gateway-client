@@ -17,9 +17,8 @@ use JmaDsm\GatewayClient\ApiObjects\Customer;
      $config['tenant_token'],
      $config['api_path'] ?? null
  );
-//die(var_dump($config));
-var_dump(
-//    Customer::getCreditLimit(76721300),
+
+ var_dump(
 //    Customer::getCreditLimit("76721300"),
     Customer::get("76721300"),
 );
