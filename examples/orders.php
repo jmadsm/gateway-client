@@ -17,11 +17,17 @@ Client::getInstance(
     $config['api_path'] ?? null
 );
 
-/* $result = Order::getCustomerInvoice('76721300', 'TESTAGCO');
+/*
+var_dump(
+$result = Order::getInvoice('76721300', 'TESTAGCO');
+);
 
 var_dump(
-    $result
-); */
+    'inbox: ' . Order::getSalesIntegrationInbox('76721300','TEST-jhj-5')->getData()->externalDocumentNumber, // inbox table
+    'order: ' . Order::getSalesOrderExternalId('76721300','TEST-jhj-5')->getData()->external_document_number, // order table
+    Order::getInvoice('76721300','TEST-jhj-5')->getData()->invoices->external_document_number // invoice table
+);
+*/
 
 var_dump(
     Order::create([
