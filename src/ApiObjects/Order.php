@@ -44,28 +44,28 @@ class Order
     public static function getSalesOrders($customerId, $orderId)
     {
         $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
-        $result  = Client::getInstance()->get($apiPath . '/sales-orders', ['customer_id' => $customerId, 'order_id' => $orderId]);
+        $result  = Client::getInstance()->get($apiPath . '/sales-orders', ['customer_number' => $customerId, 'order_id' => $orderId]);
 
         return new ApiObjectResult($result, __METHOD__, 0, [$customerId, $orderId]);
     }
 
-    public static function getSalesOrderExternalId($customerId, $orderId)
+    public static function getSalesOrderExternalId($customerNumber, $orderId)
     {
         $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
-        $result  = Client::getInstance()->get($apiPath . '/sales-orders-by-external-order-id', ['customer_id' => $customerId, 'order_id' => $orderId]);
+        $result  = Client::getInstance()->get($apiPath . '/sales-orders-by-external-order-id', ['customer_number' => $customerNumber, 'order_id' => $orderId]);
 
-        return new ApiObjectResult($result, __METHOD__, 0, [$customerId, $orderId]);
+        return new ApiObjectResult($result, __METHOD__, 0, [$customerNumber, $orderId]);
     }
 
-    public static function getCustomerInvoice($customerId, $documentNumber)
+    public static function getInvoice($customerNumber, $documentNumber)
     {
         $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
-        $result  = Client::getInstance()->get($apiPath . '/invoice/customer', ['customer_number' => $customerId, 'order_id' => $documentNumber]);
+        $result  = Client::getInstance()->get($apiPath . '/invoice/customer', ['customer_number' => $customerNumber, 'order_id' => $documentNumber]);
 
-        return new ApiObjectResult($result, __METHOD__, 0, [$customerId, $documentNumber]);
+        return new ApiObjectResult($result, __METHOD__, 0, [$customerNumber, $documentNumber]);
     }
 
-    public static function getCustomerSalesIntegrationInbox($customerId, $documentNumber)
+    public static function getSalesIntegrationInbox($customerId, $documentNumber)
     {
         $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
         $result  = Client::getInstance()->get($apiPath . '/sales-integration-inbox', ['customer_number' => $customerId, 'order_id' => $documentNumber]);
