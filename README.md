@@ -21,7 +21,7 @@ Client::getInstance( // get the config from JMA
 $product    = Product::get('product_id');
 $categories = Category::all();
 
-foreach ($categories as $category) { // The categories object will recursively fetch all categories in chuncks.
+while ($category = $categories->next()) { // The categories object will recursively fetch all categories in chuncks.
     echo $category->name;
 }
 ```
