@@ -171,14 +171,8 @@ class Client
 
         switch (strtoupper($method)) {
             case 'GET':
-                if($payload!=null) {
-                    curl_setopt($this->curl, CURLOPT_CUSTOMREQUEST, 'GET');
-                    curl_setopt($this->curl, CURLOPT_POSTFIELDS, json_encode($payload));
-                }
-                $this->setApiClientHeaders(['Content-Type: application/json']);
-                break;
             case 'DELETE':
-                $url = $payload ? $url . '?' . http_build_query($payload) : $url;
+                $url = $payload ? $url . '?' . http_build_query($this->recursiveRawurlencode($payload)) : $url;
                 $this->setApiClientHeaders();
                 break;
             case 'POST':
@@ -242,5 +236,16 @@ class Client
     public function post($endpoint, $payload = null)
     {
         return $this->request('POST', $endpoint, $payload);
+    }
+
+    private function recursiveRawurlencode($array) {
+        foreach ($array as $value) {
+            if (is_array($value)) {
+                $this->recursiveRawurlencode($value);
+            } else {
+                $value = rawurlencode($value);
+            }
+        }
+	return $array;
     }
 }
