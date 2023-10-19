@@ -34,7 +34,7 @@ class Tierprice
     {
         $id = rawurlencode($id);
         $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
-        $result = Client::getInstance()->get($apiPath . '/tierprices/' . rawurlencode($id));
+        $result = Client::getInstance()->get($apiPath . '/tierprices/' . $id);
 
         return new ApiObjectResult($result);
     }
