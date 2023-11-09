@@ -112,7 +112,9 @@ class ApiObjectResult
 
         // Get result for next page from API
         $this->page++;
-        $resultNextPage = call_user_func_array($this->method, array_merge([$this->page], $this->parameters));
+        if (isset($this->method)) {
+            $resultNextPage = call_user_func_array($this->method, array_merge([$this->page], $this->parameters));
+        }
 
         // Update variables for this ApiObjectResult with data from the next page
         $this->updateThisObject($resultNextPage, $this->method, $this->page, $this->parameters);
