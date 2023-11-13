@@ -32,9 +32,9 @@ class Product
         return new ApiObjectResult($result, __METHOD__, $page, [$since, $locations, $sinceorder, $expandoptions]);
     }
 
-    public static function getLimited($id, $expandoptions = [])
+    public static function getLimited($id)
     {
-        $result = Client::getInstance()->get(Client::getInstance()->getApiPath(self::$apiPath) . '/productslimited/' . $id, ['expandOptions' => $expandoptions]);
+        $result = Client::getInstance()->get(Client::getInstance()->getApiPath(self::$apiPath) . '/productslimited/' . $id, []);
 
         return new ApiObjectResult($result);
     }
