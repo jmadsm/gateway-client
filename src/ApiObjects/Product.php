@@ -32,14 +32,25 @@ class Product
         return new ApiObjectResult($result, __METHOD__, $page, [$since, $locations, $sinceorder, $expandoptions]);
     }
 
+    public static function getLimited($id, $expandoptions = [])
+    {
+        $result = Client::getInstance()->get(Client::getInstance()->getApiPath(self::$apiPath) . '/productslimited/' . $id, ['expandOptions' => $expandoptions]);
+
+        return new ApiObjectResult($result);
+    }
+
     /**
      * Returns specific product
      *
      * @param $id
      * @return ApiObjectResult
      */
-    public static function get($id, array $locations = [])
+    public static function get($id, array $locations = [], array $expandoptions = null)
     {
+        if ($expandoptions) {
+            $payload['expandOptions'] = $expandoptions;
+        }
+
         $result = Client::getInstance()->get(Client::getInstance()->getApiPath(self::$apiPath) . '/products/' . $id, ['locations' => $locations]);
 
         return new ApiObjectResult($result);
