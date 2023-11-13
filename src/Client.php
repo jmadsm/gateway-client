@@ -11,7 +11,11 @@ class Client
      */
     private static $instance;
 
-    private $accessToken, $baseUrl, $curl, $tenantToken, $apiPath;
+    private $accessToken;
+    private $baseUrl;
+    private $curl;
+    private $tenantToken;
+    private $apiPath;
 
     /**
      * Gets the active class instance from $instance. If instance is not set
@@ -39,13 +43,20 @@ class Client
      * @param string $accessToken
      * @param string $tenantToken
      */
-    private function __construct(string $baseUrl = null, string $accessToken = null, string $tenantToken = null, string $apiPath = null)
+    private function __construct(?string $baseUrl = null, ?string $accessToken = null, ?string $tenantToken = null, ?string $apiPath = null)
     {
-        if ($baseUrl) $this->setBaseUrl($baseUrl);
-        if ($accessToken) $this->setAccessToken($accessToken);
-        if ($tenantToken) $this->setTenantToken($tenantToken);
-        if ($apiPath !== null) $this->setApiPath($apiPath);
-
+        if ($baseUrl) {
+            $this->setBaseUrl($baseUrl);
+        }
+        if ($accessToken) {
+            $this->setAccessToken($accessToken);
+        }
+        if ($tenantToken) {
+            $this->setTenantToken($tenantToken);
+        }
+        if ($apiPath !== null) {
+            $this->setApiPath($apiPath);
+        }
 
         $this->curl = curl_init();
 
@@ -174,6 +185,7 @@ class Client
             case 'DELETE':
                 $url = $payload ? $url . '?' . http_build_query($this->recursiveRawurlencode($payload)) : $url;
                 $this->setApiClientHeaders();
+
                 break;
             case 'POST':
                 curl_setopt($this->curl, CURLOPT_POST, true);
@@ -205,8 +217,9 @@ class Client
 
         if ($httpCode === 404) {
             http_response_code(404);
+
             return [
-                'message' => $response,
+                'message'    => $response,
                 'statusCode' => http_response_code(404)
             ];
         }
@@ -238,7 +251,8 @@ class Client
         return $this->request('POST', $endpoint, $payload);
     }
 
-    private function recursiveRawurlencode($array) {
+    private function recursiveRawurlencode($array)
+    {
         foreach ($array as $value) {
             if (is_array($value)) {
                 $this->recursiveRawurlencode($value);
@@ -246,6 +260,7 @@ class Client
                 $value = rawurlencode($value);
             }
         }
-	return $array;
+
+        return $array;
     }
 }

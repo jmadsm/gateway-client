@@ -18,7 +18,7 @@ class Stock
     public static function all($locations = [], $since = null, bool $showReserved = false)
     {
         $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
-        $result = Client::getInstance()->get($apiPath . '/stock', ['locations' => $locations, 'from' => $since, 'showReserved' => $showReserved]);
+        $result  = Client::getInstance()->get($apiPath . '/stock', ['locations' => $locations, 'from' => $since, 'showReserved' => $showReserved]);
 
         return new ApiObjectResult($result, __METHOD__);
     }
@@ -29,10 +29,10 @@ class Stock
      * @param $id
      * @return ApiObjectResult
      */
-    public static function get($id)
+    public static function get(string $id, array $locations = [], bool $showReserved = false)
     {
         $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
-        $result = Client::getInstance()->get($apiPath . '/product', ['sku' => $id]);
+        $result  = Client::getInstance()->get($apiPath . '/product', ['sku' => $id, 'locations' => $locations, 'showReserved' => $showReserved]);
 
         return new ApiObjectResult($result);
     }
