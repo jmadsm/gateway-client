@@ -16,11 +16,15 @@ class Product
      * @param $since
      * @return JmaDsm\GatewayClient\ApiObjectResult;
      */
-    public static function all(int $page = 1, $since = null, array $locations = [], $sinceorder = null, array $expandoptions = null)
+    public static function all(int $perPage = null, int $page = 1, $since = null, array $locations = [], $sinceorder = null, array $expandoptions = null)
     {
         $apiPath  = Client::getInstance()->getApiPath(self::$apiPath);
         $endpoint = $apiPath . '/products';
         $payload  = ['page' => $page, 'since' => $since, 'locations' => $locations, 'sinceorder' => $sinceorder];
+        
+        if ($perPage != null || $perPage != 0) {
+            $payload['perPage'] = $perPage;
+        }
 
         if ($expandoptions) {
             $endpoint                 = $apiPath . '/productslimited';
@@ -52,9 +56,9 @@ class Product
      * @param int $page
      * @return ApiObjectResult
      */
-    public static function since($since, $page = 1, array $locations = [], $sinceorder = null, array $expandoptions = null)
+    public static function since($perPage = null, $since, $page = 1, array $locations = [], $sinceorder = null, array $expandoptions = null)
     {
-        return Product::all($page, $since, $locations, $sinceorder, $expandoptions);
+        return Product::all($perPage, $page, $since, $locations, $sinceorder, $expandoptions);
     }
 
     /**
