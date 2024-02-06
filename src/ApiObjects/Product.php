@@ -16,7 +16,7 @@ class Product
      * @param $since
      * @return JmaDsm\GatewayClient\ApiObjectResult;
      */
-    public static function all(int $perPage = null, int $page = 1, $since = null, array $locations = [], $sinceorder = null, array $expandoptions = null)
+    public static function all(int $page = 1, $since = null, array $locations = [], $sinceorder = null, array $expandoptions = null, int $perPage = 25)
     {
         $apiPath  = Client::getInstance()->getApiPath(self::$apiPath);
         $endpoint = $apiPath . '/products';
@@ -33,7 +33,14 @@ class Product
 
         $result = Client::getInstance()->get($endpoint, $payload);
 
-        return new ApiObjectResult($result, __METHOD__, $page, [$since, $locations, $sinceorder, $expandoptions]);
+        return new ApiObjectResult($result, __METHOD__, $page, [$since, $locations, $sinceorder, $expandoptions], $perPage);
+    }
+
+    public static function getLimited($id)
+    {
+        $result = Client::getInstance()->get(Client::getInstance()->getApiPath(self::$apiPath) . '/productslimited/' . $id, []);
+
+        return new ApiObjectResult($result);
     }
 
     /**
@@ -56,9 +63,9 @@ class Product
      * @param int $page
      * @return ApiObjectResult
      */
-    public static function since($perPage = null, $since, int $page = 1, array $locations = [], $sinceorder = null, array $expandoptions = null)
+    public static function since($perPage = 25, $since, int $page = 1, array $locations = [], $sinceorder = null, array $expandoptions = null)
     {
-        return Product::all($perPage, $page, $since, $locations, $sinceorder, $expandoptions);
+        return Product::all($page, $since, $locations, $sinceorder, $expandoptions, $perPage);
     }
 
     /**
