@@ -72,4 +72,12 @@ class Order
 
         return new ApiObjectResult($result, __METHOD__, 0, [$customerId, $documentNumber]);
     }
+
+    public static function getOrderStatus($orderNumber)
+    {
+        $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
+        $result  = Client::getInstance()->get($apiPath . '/orders/status/'.$orderNumber);
+
+        return new ApiObjectResult($result, __METHOD__, 0, [$orderNumber]);
+    }
 }
