@@ -10,6 +10,7 @@ class ApiObjectResult
     protected int $to;
     protected int $total;
     protected int $page;
+    protected int $perPage;
     protected array $content;
     protected bool $firstElement = true;
 
@@ -18,14 +19,14 @@ class ApiObjectResult
      * @param $method
      * @param array $parameters
      */
-    public function __construct($result, string $method = '', int $page = 1, array $parameters = [])
+    public function __construct($result, string $method = '', int $page = 1, array $parameters = [], int $perPage = 25)
     {
         if (is_null($result)) {
             http_response_code(404);
             die('No result. Please check your URL and API Path.');
         }
 
-        $this->updateThisObject($result, $method, $page, $parameters);
+        $this->updateThisObject($result, $method, $page, $parameters, $perPage);
     }
 
     /**
@@ -33,9 +34,10 @@ class ApiObjectResult
      * @param $method
      * @param $parameters
      */
-    private function updateThisObject($result, $method, $page, $parameters): void
+    private function updateThisObject($result, $method, $page, $parameters, $perPage = 25): void
     {
         $this->data           = $result->data ?? $result ?? null;
+        $this->perPage        = $perPage;
         $this->method         = $method;
         $this->page           = $page;
         $this->parameters     = $parameters;
@@ -112,10 +114,11 @@ class ApiObjectResult
 
         // Get result for next page from API
         $this->page++;
+        //die(var_dump($this->method));
         $resultNextPage = call_user_func_array($this->method, array_merge([$this->page], $this->parameters));
 
         // Update variables for this ApiObjectResult with data from the next page
-        $this->updateThisObject($resultNextPage, $this->method, $this->page, $this->parameters);
+        $this->updateThisObject($resultNextPage, $this->method, $this->page, $this->parameters, $this->perPage);
 
         return true;
     }
@@ -166,6 +169,14 @@ class ApiObjectResult
     public function getPage(): int
     {
         return $this->page;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPerPage(): int
+    {
+        return $this->perPage;
     }
 
     /**
