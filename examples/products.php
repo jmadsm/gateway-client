@@ -18,15 +18,17 @@ use JmaDsm\GatewayClient\ApiObjects\Product;
      $config['api_path'] ?? null
  );
 
-//$products = Product::all(1, null, ['H', 'STPR']);
+$products = Product::all((int) 1, null, ['H', 'STPR'], perPage: 25);
 //$products = Product::since('2022-04-18T13:06:09.147Z', 1, ['Hx', 'H']);
 //die(var_dump($products->getCurrentElement()->updated_at));
 
-//while($product = $products->next()) {
-//    var_dump($product->sku, $product->inventory);
-//}
+while ($product = $products->next()) {
 
-var_dump(
+    var_dump("test: " .$product->sku);
+  
+}
+
+//var_dump(
 //    Product::all(1, null, [], 'asc', ['notes', 'categories', 'imagemetadata']),
 //    Product::all(1)->next(),
 //    Product::all(1, null, ['H', 'STPR'])->next(),
@@ -37,4 +39,4 @@ var_dump(
 //    Product::netPrice("76721300", "DF0.018.9727.4/10", 1, 'WEB')
 //    Product::netPrice("20266673", "0 434 250 014", 4, 'web')->getCurrentElement()->ordertype
 //    Product::netPrice("20266673", "0 434 250 014", 4, 'web')->getCurrentElement()
-);
+//);
