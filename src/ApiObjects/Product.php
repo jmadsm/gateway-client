@@ -63,7 +63,7 @@ class Product
      * @param int $page
      * @return ApiObjectResult
      */
-    public static function since($perPage = 25, $since, int $page = 1, array $locations = [], $sinceorder = null, array $expandoptions = null)
+    public static function since($since, $perPage = 25, int $page = 1, array $locations = [], $sinceorder = null, array $expandoptions = null)
     {
         return Product::all($page, $since, $locations, $sinceorder, $expandoptions, $perPage);
     }
