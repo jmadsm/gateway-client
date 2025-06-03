@@ -33,14 +33,18 @@ class Product
 
         $result = Client::getInstance()->get($endpoint, $payload);
 
-        return new ApiObjectResult($result, __METHOD__, $page, [$since, $locations, $sinceorder, $expandoptions], $perPage);
+        $statusCode = Client::getInstance()->getStatusCode();
+        
+        return new ApiObjectResult($result, __METHOD__, $page, [$since, $locations, $sinceorder, $expandoptions], $perPage, statusCode: $statusCode);
     }
 
     public static function getLimited($id)
     {
         $result = Client::getInstance()->get(Client::getInstance()->getApiPath(self::$apiPath) . '/productslimited/' . $id, []);
 
-        return new ApiObjectResult($result);
+        $statusCode = Client::getInstance()->getStatusCode();
+        
+        return new ApiObjectResult($result, statusCode: $statusCode);
     }
 
     /**
@@ -53,7 +57,9 @@ class Product
     {
         $result = Client::getInstance()->get(Client::getInstance()->getApiPath(self::$apiPath) . '/products/' . $id, ['locations' => $locations]);
 
-        return new ApiObjectResult($result);
+        $statusCode = Client::getInstance()->getStatusCode();
+        
+        return new ApiObjectResult($result, statusCode: $statusCode);
     }
 
     /**
@@ -81,13 +87,17 @@ class Product
         $payload = ['customerNo' => $debitorNumber, 'quantity' => (int) $quantity, 'itemNumber' => $productNumber, 'ordertype' => $ordertype];
         $result  = Client::getInstance()->get(Client::getInstance()->getApiPath(self::$apiPath) . '/netprice/calculate', (array) $payload);
 
-        return new ApiObjectResult($result, __METHOD__, 1, [$debitorNumber, $quantity, $productNumber]);
+        $statusCode = Client::getInstance()->getStatusCode();
+        
+        return new ApiObjectResult($result, __METHOD__, 1, [$debitorNumber, $quantity, $productNumber], statusCode: $statusCode);
     }
 
     public static function getVariant($id): ApiObjectResult
     {
         $result = Client::getInstance()->get(Client::getInstance()->getApiPath(self::$apiPath) . '/variants/' . $id, []);
 
-        return new ApiObjectResult($result);
+        $statusCode = Client::getInstance()->getStatusCode();
+        
+        return new ApiObjectResult($result, statusCode: $statusCode);
     }
 }

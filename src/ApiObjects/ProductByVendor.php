@@ -26,6 +26,8 @@ class ProductByVendor
 
         $result = Client::getInstance()->get($endpoint, $payload);
 
-        return new ApiObjectResult($result, __METHOD__, 1, [$locations, $vendorItemNo]);
+        $statusCode = Client::getInstance()->getStatusCode();
+        
+        return new ApiObjectResult($result, __METHOD__, 1, [$locations, $vendorItemNo], statusCode: $statusCode);
     }
 }

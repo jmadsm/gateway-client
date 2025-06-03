@@ -19,6 +19,8 @@ class ProductImages
         $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
         $result = Client::getInstance()->get($apiPath . '/productimages/' . $id);
 
-        return new ApiObjectResult($result);
+        $statusCode = Client::getInstance()->getStatusCode();
+        
+        return new ApiObjectResult($result, statusCode: $statusCode);
     }
 }

@@ -21,7 +21,9 @@ class RecordChange
         $result = Client::getInstance()->get(self::$apiPath . '/recordchanges',
             ['page' => $page, 'since' => $since]);
 
-        return new ApiObjectResult($result, __METHOD__, $page, [$since]);
+        $statusCode = Client::getInstance()->getStatusCode();
+        
+        return new ApiObjectResult($result, __METHOD__, $page, [$since], statusCode: $statusCode);
     }
 
     /**
@@ -36,7 +38,9 @@ class RecordChange
         $result = Client::getInstance()->get($apiPath . '/recordchanges/tablename/' . urlencode($tableName),
             ['page' => $page, 'since' => $since]);
 
-        return new ApiObjectResult($result, __METHOD__, $page, [$tableName, $since]);
+        $statusCode = Client::getInstance()->getStatusCode();
+        
+        return new ApiObjectResult($result, __METHOD__, $page, [$tableName, $since], statusCode: $statusCode);
     }
 
     /**
@@ -51,7 +55,9 @@ class RecordChange
         $result = Client::getInstance()->get($apiPath . '/recordchanges/tableid/' . $tableId,
             ['page' => $page, 'since' => $since]);
 
-        return new ApiObjectResult($result, __METHOD__, $page, [$tableId, $since]);
+        $statusCode = Client::getInstance()->getStatusCode();
+        
+        return new ApiObjectResult($result, __METHOD__, $page, [$tableId, $since], statusCode: $statusCode);
     }
 
     /**

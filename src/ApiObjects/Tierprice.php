@@ -21,7 +21,9 @@ class Tierprice
         $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
         $result = Client::getInstance()->get($apiPath . '/tierprices', ['page' => $page, 'since' => $since]);
 
-        return new ApiObjectResult($result, __METHOD__, $page, [$since]);
+        $statusCode = Client::getInstance()->getStatusCode();
+        
+        return new ApiObjectResult($result, __METHOD__, $page, [$since], statusCode: $statusCode);
     }
 
     /**
@@ -36,7 +38,9 @@ class Tierprice
         $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
         $result = Client::getInstance()->get($apiPath . '/tierprices/' . $id);
 
-        return new ApiObjectResult($result);
+        $statusCode = Client::getInstance()->getStatusCode();
+        
+        return new ApiObjectResult($result, statusCode: $statusCode);
     }
 
     /**

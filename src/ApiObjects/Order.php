@@ -22,7 +22,9 @@ class Order
         $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
         $result  = Client::getInstance()->post($apiPath . '/order', $orderData);
 
-        return new ApiObjectResult($result);
+        $statusCode = Client::getInstance()->getStatusCode();
+        
+        return new ApiObjectResult($result, statusCode: $statusCode);
     }
 
     /**
@@ -38,7 +40,9 @@ class Order
         $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
         $result  = Client::getInstance()->post($apiPath . '/machineorder', $orderData);
 
-        return new ApiObjectResult($result);
+        $statusCode = Client::getInstance()->getStatusCode();
+        
+        return new ApiObjectResult($result, statusCode: $statusCode);
     }
 
     public static function getSalesOrders($customerId, $orderId)
@@ -46,7 +50,9 @@ class Order
         $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
         $result  = Client::getInstance()->get($apiPath . '/sales-orders', ['customer_number' => $customerId, 'order_id' => $orderId]);
 
-        return new ApiObjectResult($result, __METHOD__, 0, [$customerId, $orderId]);
+        $statusCode = Client::getInstance()->getStatusCode();
+        
+        return new ApiObjectResult($result, __METHOD__, 0, [$customerId, $orderId], statusCode: $statusCode);
     }
 
     public static function getSalesOrderExternalId($customerNumber, $orderId)
@@ -54,7 +60,9 @@ class Order
         $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
         $result  = Client::getInstance()->get($apiPath . '/sales-orders-by-external-order-id', ['customer_number' => $customerNumber, 'order_id' => $orderId]);
 
-        return new ApiObjectResult($result, __METHOD__, 0, [$customerNumber, $orderId]);
+        $statusCode = Client::getInstance()->getStatusCode();
+        
+        return new ApiObjectResult($result, __METHOD__, 0, [$customerNumber, $orderId], statusCode: $statusCode);
     }
 
     public static function getInvoice($customerNumber, $documentNumber)
@@ -62,7 +70,9 @@ class Order
         $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
         $result  = Client::getInstance()->get($apiPath . '/invoice/customer', ['customer_number' => $customerNumber, 'order_id' => $documentNumber]);
 
-        return new ApiObjectResult($result, __METHOD__, 0, [$customerNumber, $documentNumber]);
+        $statusCode = Client::getInstance()->getStatusCode();
+        
+        return new ApiObjectResult($result, __METHOD__, 0, [$customerNumber, $documentNumber], statusCode: $statusCode);
     }
 
     public static function getSalesIntegrationInbox($customerId, $documentNumber)
@@ -70,7 +80,9 @@ class Order
         $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
         $result  = Client::getInstance()->get($apiPath . '/sales-integration-inbox', ['customer_number' => $customerId, 'order_id' => $documentNumber]);
 
-        return new ApiObjectResult($result, __METHOD__, 0, [$customerId, $documentNumber]);
+        $statusCode = Client::getInstance()->getStatusCode();
+        
+        return new ApiObjectResult($result, __METHOD__, 0, [$customerId, $documentNumber], statusCode: $statusCode);
     }
 
     public static function getOrderStatus($orderNumber)
@@ -78,6 +90,8 @@ class Order
         $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
         $result  = Client::getInstance()->get($apiPath . '/orders/status/'.$orderNumber);
 
-        return new ApiObjectResult($result, __METHOD__, 0, [$orderNumber]);
+        $statusCode = Client::getInstance()->getStatusCode();
+        
+        return new ApiObjectResult($result, __METHOD__, 0, [$orderNumber], statusCode: $statusCode);
     }
 }

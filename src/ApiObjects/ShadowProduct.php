@@ -16,12 +16,14 @@ class ShadowProduct
      * @param $since
      * @return JmaDsm\GatewayClient\ApiObjectResult;
      */
-    public static function all(int $page = 1, $since = null)
+    public static function all(int $page = 1, $since = null, $perPage = 1000)
     {
         $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
-        $result = Client::getInstance()->get($apiPath . '/shadowproducts', ['page' => $page, 'since' => $since]);
+        $result = Client::getInstance()->get($apiPath . '/shadowproducts', ['page' => $page, 'since' => $since, 'per_page' => $perPage]);
 
-        return new ApiObjectResult($result, __METHOD__, $page, [$since]);
+        $statusCode = Client::getInstance()->getStatusCode();
+        
+        return new ApiObjectResult($result, __METHOD__, $page, [$since], statusCode: $statusCode);
     }
 
     /**
@@ -35,7 +37,9 @@ class ShadowProduct
         $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
         $result = Client::getInstance()->get($apiPath . '/shadowproducts/' . $id);
 
-        return new ApiObjectResult($result);
+        $statusCode = Client::getInstance()->getStatusCode();
+        
+        return new ApiObjectResult($result, statusCode: $statusCode);
     }
 
     /**

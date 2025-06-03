@@ -28,7 +28,9 @@ class ProductTemplate
 
         $result = Client::getInstance()->get($endpoint, $payload);
 
-        return new ApiObjectResult($result, __METHOD__, $page, [$expandoptions]);
+        $statusCode = Client::getInstance()->getStatusCode();
+
+        return new ApiObjectResult($result, __METHOD__, $page, [$expandoptions], statusCode: $statusCode);
     }
 
     /**
@@ -41,7 +43,9 @@ class ProductTemplate
     {
         $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
         $result = Client::getInstance()->get($apiPath . '/producttemplates/' . $id);
+        
+        $statusCode = Client::getInstance()->getStatusCode();
 
-        return new ApiObjectResult($result);
+        return new ApiObjectResult($result, statusCode: $statusCode);
     }
 }

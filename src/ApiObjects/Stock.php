@@ -20,7 +20,9 @@ class Stock
         $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
         $result  = Client::getInstance()->get($apiPath . '/stock', ['locations' => $locations, 'from' => $since, 'showReserved' => $showReserved]);
 
-        return new ApiObjectResult($result, __METHOD__);
+        $statusCode = Client::getInstance()->getStatusCode();
+        
+        return new ApiObjectResult($result, __METHOD__, statusCode: $statusCode);
     }
 
     /**
@@ -34,7 +36,9 @@ class Stock
         $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
         $result  = Client::getInstance()->get($apiPath . '/product', ['sku' => $id, 'locations' => $locations, 'showReserved' => $showReserved]);
 
-        return new ApiObjectResult($result);
+        $statusCode = Client::getInstance()->getStatusCode();
+        
+        return new ApiObjectResult($result, statusCode: $statusCode);
     }
 
     /**

@@ -22,6 +22,8 @@ class Property
         $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
         $result  = Client::getInstance()->get($apiPath . '/properties');
 
-        return new ApiObjectResult($result, __METHOD__, $page);
+        $statusCode = Client::getInstance()->getStatusCode();
+        
+        return new ApiObjectResult($result, __METHOD__, $page, statusCode: $statusCode);
     }
 }

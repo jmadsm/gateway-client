@@ -16,6 +16,7 @@ class Client
     private $curl;
     private $tenantToken;
     private $apiPath;
+    private $statusCode;
 
     /**
      * Gets the active class instance from $instance. If instance is not set
@@ -166,6 +167,14 @@ class Client
         ], $additionalHeaders));
     }
 
+    public function getStatusCode(): int {
+        return $this->statusCode;
+    }
+
+    private function setStatusCode($statusCode): void {
+        $this->statusCode = $statusCode;
+    }
+
     /**
      * Sends and formates http request to api
      *
@@ -224,7 +233,9 @@ class Client
             ];
         }
 
-        return json_decode($response);
+        $this->setStatusCode(curl_getinfo($this->curl, CURLINFO_HTTP_CODE));
+
+        return json_decode($response);  
     }
 
     /**

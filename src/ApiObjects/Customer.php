@@ -23,7 +23,9 @@ class Customer
         $endpoint = $apiPath . '/customers/' . $id;
         $result = Client::getInstance()->get($endpoint);
 
-        return new ApiObjectResult($result, __METHOD__, 1, []);
+        $statusCode = Client::getInstance()->getStatusCode();
+        
+        return new ApiObjectResult($result, __METHOD__, 1, [], statusCode: $statusCode);
     }
 
     /**
@@ -40,6 +42,8 @@ class Customer
 
         $result = Client::getInstance()->get($endpoint, $payload);
 
-        return new ApiObjectResult($result, __METHOD__, 1, [$dsmCustomerNumber]);
+        $statusCode = Client::getInstance()->getStatusCode();
+        
+        return new ApiObjectResult($result, __METHOD__, 1, [$dsmCustomerNumber], statusCode: $statusCode);
     }
 }

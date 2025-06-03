@@ -13,17 +13,22 @@ class ApiObjectResult
     protected int $perPage;
     protected array $content;
     protected bool $firstElement = true;
+    protected int $statusCode;
 
     /**
      * @param $result
      * @param $method
      * @param array $parameters
      */
-    public function __construct($result, string $method = '', int $page = 1, array $parameters = [], int $perPage = 25)
+    public function __construct($result, string $method = '', int $page = 1, array $parameters = [], int $perPage = 25, ?int $statusCode = null)
     {
         if (is_null($result)) {
             http_response_code(404);
             die('No result. Please check your URL and API Path.');
+        }
+
+        if ($statusCode !== null) {
+            $this->setStatusCode($statusCode);
         }
 
         $this->updateThisObject($result, $method, $page, $parameters, $perPage);
@@ -185,5 +190,15 @@ class ApiObjectResult
     public function getContent(): array
     {
         return $this->content;
+    }
+    
+    private function setStatusCode($statusCode): void
+    {
+        $this->statusCode = $statusCode;
+    }
+
+    public function getStatusCode(): int|null
+    {
+        return $this->statusCode ?? null;
     }
 }

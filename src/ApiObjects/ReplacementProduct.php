@@ -20,7 +20,10 @@ class ReplacementProduct
     {
         $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
         $result = Client::getInstance()->get($apiPath . '/replacementproducts', ['page' => $page, 'since' => $since]);
-        return new ApiObjectResult($result, __METHOD__, $page, [$since]);
+
+        $statusCode = Client::getInstance()->getStatusCode();
+        
+        return new ApiObjectResult($result, __METHOD__, $page, [$since], statusCode: $statusCode);
     }
 
     /**
@@ -34,7 +37,9 @@ class ReplacementProduct
         $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
         $result = Client::getInstance()->get($apiPath . '/replacementproducts/' . $id);
 
-        return new ApiObjectResult($result);
+        $statusCode = Client::getInstance()->getStatusCode();
+        
+        return new ApiObjectResult($result, statusCode: $statusCode);
     }
 
     /**

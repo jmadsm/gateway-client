@@ -18,7 +18,10 @@ class Contact
     {
         $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
         $result = Client::getInstance()->get($apiPath . '/contacts', ['page' => $page, 'since' => $since]);
-        return new ApiObjectResult($result, __METHOD__, $page, [$since]);
+
+        $statusCode = Client::getInstance()->getStatusCode();
+        
+        return new ApiObjectResult($result, __METHOD__, $page, [$since], statusCode: $statusCode);
     }
 
     /**
@@ -31,7 +34,10 @@ class Contact
     {
         $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
         $result = Client::getInstance()->get($apiPath . '/contacts/' . $id);
-        return new ApiObjectResult($result);
+
+        $statusCode = Client::getInstance()->getStatusCode();
+        
+        return new ApiObjectResult($result, statusCode: $statusCode);
     }
 
     /**
