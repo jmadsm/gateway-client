@@ -16,11 +16,11 @@ class ProductTemplate
      * @param $since
      * @return JmaDsm\GatewayClient\ApiObjectResult;
      */
-    public static function all(int $page = 1, array $expandoptions = null)
+    public static function all(int $page = 1, array $expandoptions = null, int $perPage = 25, string $since = null, bool $templateRules = null)
     {
         $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
         $endpoint = $apiPath . '/producttemplates';
-        $payload  = ['page' => $page];
+        $payload  = ['page' => $page, 'perPage' => $perPage, 'since' => $since, 'template_rules' => $templateRules];
 
         if ($expandoptions) {
             $payload['expandOptions'] = $expandoptions;
@@ -47,5 +47,17 @@ class ProductTemplate
         $statusCode = Client::getInstance()->getStatusCode();
 
         return new ApiObjectResult($result, statusCode: $statusCode);
+    }
+
+    /**
+     * Returns products changed since $from date. Defaults to page 1
+     *
+     * @param $since
+     * @param int $page
+     * @return ApiObjectResult
+     */
+    public static function since($since, int $page = 1, array $expandoptions = null, $perPage = 25)
+    {
+        return ProductTemplate::all($page, $expandoptions, $perPage, $since, );
     }
 }
