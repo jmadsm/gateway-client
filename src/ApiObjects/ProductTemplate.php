@@ -16,11 +16,11 @@ class ProductTemplate
      * @param $since
      * @return JmaDsm\GatewayClient\ApiObjectResult;
      */
-    public static function all(int $page = 1, array $expandoptions = null, int $perPage = 25, string $since = null, bool $templateRules = null)
+    public static function all(int $page = 1, array $expandoptions = null, int $perPage = 25, string $since = null, bool $templateRules = null, string $sortOrder = 'desc')
     {
         $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
         $endpoint = $apiPath . '/producttemplates';
-        $payload  = ['page' => $page, 'perPage' => $perPage, 'since' => $since, 'template_rules' => $templateRules];
+        $payload  = ['page' => $page, 'perPage' => $perPage, 'since' => $since, 'template_rules' => $templateRules, 'sort_order' => $sortOrder];
 
         if ($expandoptions) {
             $payload['expandOptions'] = $expandoptions;
@@ -56,8 +56,8 @@ class ProductTemplate
      * @param int $page
      * @return ApiObjectResult
      */
-    public static function since($since, int $page = 1, array $expandoptions = null, $perPage = 25)
+    public static function since($since, int $page = 1, array $expandoptions = null, $perPage = 25, bool $templateRules = null, string $sortOrder = 'desc')
     {
-        return ProductTemplate::all($page, $expandoptions, $perPage, $since, );
+        return ProductTemplate::all($page, $expandoptions, $perPage, $since, $templateRules, $sortOrder);
     }
 }
