@@ -40,7 +40,7 @@ class ProductTemplateRelation
      */
     public static function get($id)
     {
-        $result = Client::getInstance()->get(self::$apiPath . '/producttemplates/' . $id);
+        $result = Client::getInstance()->get(self::$apiPath . '/producttemplaterelations/' . $id);
 
         $statusCode = Client::getInstance()->getStatusCode();
         
