@@ -43,6 +43,24 @@ class ShadowProduct
     }
 
     /**
+     * Returns specific shadow products, based on multiple id's
+     *
+     * @param  mixed $ids
+     * @param  mixed $page
+     * @param  mixed $perPage
+     * @return ApiObjectResult
+     */
+    public static function bulk(array $ids, ?int $page = 1, ?int $perPage = 300)
+    {
+        $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
+        $result = Client::getInstance()->get($apiPath . '/shadowproducts/bulk', ['page' => $page, 'per_page' => $perPage, 'id' => $ids]);
+
+        $statusCode = Client::getInstance()->getStatusCode();
+        
+        return new ApiObjectResult($result, __METHOD__, $page, [], statusCode: $statusCode);
+    }
+
+    /**
      * Returns shadow products changed since $from date. Defaults to page 1
      *
      * @param $since
