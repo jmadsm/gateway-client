@@ -117,6 +117,18 @@ class ApiObjectResult
             return false;
         }
 
+        // Special handling for ShadowProduct::bulk to avoid fatal error on invalid argument
+        if (
+            is_string($this->method)
+            && (strpos($this->method, 'ShadowProduct::bulk') !== false)
+            && (
+                empty($this->parameters) // no IDs left
+                || (isset($this->parameters[0]) && !is_array($this->parameters[0])) // first param should be array of IDs
+            )
+        ) {
+            return false;
+        }
+
         // Get result for next page from API
         $this->page++;
         //die(var_dump($this->method));

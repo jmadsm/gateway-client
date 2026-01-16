@@ -43,6 +43,7 @@ class ShadowProduct
     }
 
     /**
+     * NOTE: This only works in DSM9/bc20 due to limitations with odata calls in DSM8/bc14
      * Returns specific shadow products, based on multiple id's
      *
      * @param  mixed $ids
