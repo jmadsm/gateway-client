@@ -16,7 +16,7 @@ class Product
      * @param $since
      * @return JmaDsm\GatewayClient\ApiObjectResult;
      */
-    public static function all(int $page = 1, $since = null, array $locations = [], $sinceorder = null, array $expandoptions = null, int $perPage = 25)
+    public static function all(int $page = 1, $since = null, array $locations = [], $sinceorder = null, array $expandoptions = null, int $perPage = 25, bool $useExpandedStockCalculations = false)
     {
         $apiPath  = Client::getInstance()->getApiPath(self::$apiPath);
         $endpoint = $apiPath . '/products';
@@ -29,6 +29,13 @@ class Product
         if ($expandoptions) {
             $endpoint                 = $apiPath . '/productslimited';
             $payload['expandOptions'] = $expandoptions;
+        }
+
+        // If true, enables expanded stock calculations.
+        if ($useExpandedStockCalculations) {
+            if (!empty($locations)) {
+                $payload['expanded_stock_calculations'] = true;
+            }
         }
 
         $result = Client::getInstance()->get($endpoint, $payload);
@@ -53,9 +60,18 @@ class Product
      * @param $id
      * @return ApiObjectResult
      */
-    public static function get($id, array $locations = [])
+    public static function get($id, array $locations = [], bool $useExpandedStockCalculations = false)
     {
-        $result = Client::getInstance()->get(Client::getInstance()->getApiPath(self::$apiPath) . '/products/' . $id, ['locations' => $locations]);
+        $payload = ['locations' => $locations];
+
+        // If true, enables expanded stock calculations.
+        if ($useExpandedStockCalculations) {
+            if (!empty($locations)) {
+                $payload['expanded_stock_calculations'] = true;
+            }
+        }
+
+        $result = Client::getInstance()->get(Client::getInstance()->getApiPath(self::$apiPath) . '/products/' . $id, $payload);
 
         $statusCode = Client::getInstance()->getStatusCode();
         
@@ -69,9 +85,9 @@ class Product
      * @param int $page
      * @return ApiObjectResult
      */
-    public static function since($since, int $page = 1, array $locations = [], $sinceorder = null, array $expandoptions = null, $perPage = 25)
+    public static function since($since, int $page = 1, array $locations = [], $sinceorder = null, array $expandoptions = null, $perPage = 25, bool $useExpandedStockCalculations = false)
     {
-        return Product::all($page, $since, $locations, $sinceorder, $expandoptions, $perPage);
+        return Product::all($page, $since, $locations, $sinceorder, $expandoptions, $perPage, $useExpandedStockCalculations);
     }
 
     /**
