@@ -211,6 +211,9 @@ class Client
         $response = curl_exec($this->curl);
         $httpCode = curl_getinfo($this->curl, CURLINFO_HTTP_CODE);
 
+        // Always set status code before any return or exception
+        $this->setStatusCode($httpCode);
+
         // Error handling
         if (substr(strval($httpCode), 0, 1) !== '2' && $httpCode !== 404 && $httpCode !== 400) {
             $messageHint = match ($httpCode) {
@@ -232,8 +235,6 @@ class Client
                 'statusCode' => http_response_code(404)
             ];
         }
-
-        $this->setStatusCode(curl_getinfo($this->curl, CURLINFO_HTTP_CODE));
 
         return json_decode($response);  
     }
