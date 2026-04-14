@@ -45,9 +45,18 @@ class Product
         return new ApiObjectResult($result, __METHOD__, $page, [$since, $locations, $sinceorder, $expandoptions], $perPage, statusCode: $statusCode);
     }
 
-    public static function getLimited($id)
+    public static function getLimited($id, $expandoptions = [])
     {
-        $result = Client::getInstance()->get(Client::getInstance()->getApiPath(self::$apiPath) . '/productslimited/' . $id, []);
+        $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
+        $endpoint = "{$apiPath}/productslimited/{$id}";
+
+        $payload = [];
+
+        if ($expandoptions) {
+            $payload['expandOptions'] = $expandoptions;
+        }
+
+        $result = Client::getInstance()->get($endpoint, $payload);
 
         $statusCode = Client::getInstance()->getStatusCode();
         
