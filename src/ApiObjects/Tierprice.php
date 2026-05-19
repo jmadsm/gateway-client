@@ -34,7 +34,8 @@ class Tierprice
      */
     public static function get($id)
     {
-        $id = rawurlencode($id);
+        $id = str_replace('%2F', '/', rawurlencode($id));
+        // $id = rawurlencode($id);
         $apiPath = Client::getInstance()->getApiPath(self::$apiPath);
         $result = Client::getInstance()->get($apiPath . '/tierprices/' . $id);
 
