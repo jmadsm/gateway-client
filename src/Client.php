@@ -236,7 +236,15 @@ class Client
             ];
         }
 
-        return json_decode($response);  
+        // A successful 2xx response may legitimately have an empty body (e.g. HTTP 204,
+        // or 200/201 with no content). json_decode('') returns null, which downstream
+        // callers (ApiObjectResult) would otherwise treat as a hard failure. Return an
+        // empty array instead so an empty success is not confused with "no result".
+        if ($response === '' || $response === false || $response === null) {
+            return [];
+        }
+
+        return json_decode($response);
     }
 
     /**

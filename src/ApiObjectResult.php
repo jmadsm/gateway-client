@@ -23,8 +23,7 @@ class ApiObjectResult
     public function __construct($result, string $method = '', int $page = 1, array $parameters = [], int $perPage = 25, ?int $statusCode = null)
     {
         if (is_null($result)) {
-            http_response_code(404);
-            die('No result. Please check your URL and API Path.');
+            throw new \RuntimeException('No result from gateway. Check URL and API path.');
         }
 
         if ($statusCode !== null) {
@@ -131,7 +130,6 @@ class ApiObjectResult
 
         // Get result for next page from API
         $this->page++;
-        //die(var_dump($this->method));
         $resultNextPage = call_user_func_array($this->method, array_merge([$this->page], $this->parameters));
 
         // Update variables for this ApiObjectResult with data from the next page
